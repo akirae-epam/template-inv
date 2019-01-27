@@ -6,6 +6,7 @@ import SocketFetch from 'components/services/SocketFetch';
 import Home from 'pages/Home';
 
 import 'styles/canvas.css';
+import 'styles/twitter.css';
 
 class App extends Component {
   render() {

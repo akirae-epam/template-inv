@@ -27,7 +27,7 @@ class ThreeContainer extends Component {
     let width = window.innerWidth;
     let height = window.innerHeight;
     this.props.lionActions.setWindowHalfX(width/2);
-    this.props.lionActions.setWindowHalfY(width/2);
+    this.props.lionActions.setWindowHalfY(height/2);
     let mousePos = {x: 0, y: 0};
 
     let tHeadRotY;
@@ -611,7 +611,6 @@ class ThreeContainer extends Component {
   setSmiling = () => {
     this.props.lionActions.setSmile(true);
   }
-
   stopSmiling = () => {
     this.props.lionActions.setSmile(false);
   }

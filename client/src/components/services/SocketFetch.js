@@ -3,6 +3,7 @@ import io from "socket.io-client";
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import * as twitchActions from 'actions/twitch';
+import * as twitterActions from 'actions/twitter';
 
 class SocketFetch extends React.Component {
   constructor(props){
@@ -10,11 +11,16 @@ class SocketFetch extends React.Component {
     this.socket = io();
 }
   componentDidMount() {
+
     this.socket.on('twitchLive', function(res){
       this.props.twitchActions.setLive({
         username: res.username,
         isLive: res.isLive,
       })
+    }.bind(this));
+
+    this.socket.on('twitterData', function(res){
+      this.props.twitterActions.fetchTwitter(res.data)
     }.bind(this));
   }
 
@@ -28,5 +34,6 @@ export default connect(
   }),
   dispatch => ({
     twitchActions: bindActionCreators(twitchActions, dispatch),
+    twitterActions: bindActionCreators(twitterActions, dispatch),
   }),
 )(SocketFetch);

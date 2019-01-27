@@ -2,6 +2,7 @@ const fetch = require('node-fetch');
 const cron = require("node-cron");
 const express = require('express');
 let socket = require('socket.io');
+let Twitter = require('twitter');
 
 const path = require('path');
 const app = express();
@@ -9,10 +10,20 @@ const app = express();
 
 let twitchKey;
 let TWITCH_USERNAME;
+let TWITTER_USERNAME;
+let consumerKey;
+let consumerSecret;
+let accessToken;
+let accessSecret;
 
 let json = require('./config.json');
 twitchKey = json.twitchKey;
 TWITCH_USERNAME = json.twitchName;
+TWITTER_USERNAME = json.twitterName;
+consumerKey= json.consumerkey;
+consumerSecret = json.consumersecret;
+accessToken = json.accesstoken;
+accessSecret = json.accesssecret;
 
 // Serve static files from the React app
 app.use(express.static(path.join(__dirname, 'client/build')));
@@ -39,8 +50,36 @@ let isLive = false;
 
 io.on('connection', (socket) => {
   io.emit('twitchLive', {username: TWITCH_USERNAME, isLive: isLive});
+  io.emit('twitterData', {data: twitterData});
 });
+/*======================================
+=                TWITTER               =
+======================================*/
+let params = {screen_name: TWITTER_USERNAME, count:10, tweet_mode: 'extended',};
 
+let client = new Twitter({
+  consumer_key: consumerKey,
+  consumer_secret: consumerSecret,
+  access_token_key: accessToken,
+  access_token_secret: accessSecret
+ });
+
+let twitterData = {}
+cron.schedule("* * * * *", function() {
+    client.get('statuses/user_timeline', params, function(error, tweets, response) {
+      if (!error) {
+      const tweethold = Object.keys(tweets).map
+        (function(k){return{key:k, value:tweets[k]}}
+      )
+      //res.json(tweethold);
+      twitterData = tweethold;
+      io.emit('twitterData', {data: twitterData});
+      }
+      else{
+        console.log(error);
+      }
+    });
+});
 /*======================================
 =                TWITCH               =
 ======================================*/

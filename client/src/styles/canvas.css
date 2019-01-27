@@ -23,10 +23,9 @@
   bottom: 20px;
   background-color: rgba(182,103,157,1);
   padding: 20px 40px;
-  font-family: 'Merienda', Helvetica, sans-serif;
-  font-weight: 600;
   color: #fff;
   transition: .2s ease-out;
+  font-size: 24px;
 }
 .text_block:hover {
   background-color: rgba(158,76,132,1);
