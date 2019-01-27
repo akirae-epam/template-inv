@@ -3,7 +3,7 @@ import * as THREE from 'three';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as lionActions from 'actions/lion';
-//var OrbitControls = require('three-orbit-controls')(THREE)
+var OrbitControls = require('three-orbit-controls')(THREE)
 
 /* Original from here: https://codepen.io/Yakudoo/pen/YXxmYR */
 
@@ -26,8 +26,8 @@ class ThreeContainer extends Component {
     const farPlane = 2000;
     let width = window.innerWidth;
     let height = window.innerHeight;
-    let windowHalfX = width/2;
-    let windowHalfY = height/2;
+    this.props.lionActions.setWindowHalfX(width/2);
+    this.props.lionActions.setWindowHalfY(width/2);
     let mousePos = {x: 0, y: 0};
 
     let tHeadRotY;
@@ -75,17 +75,16 @@ class ThreeContainer extends Component {
     renderer.setSize(width, height);
     renderer.shadowMapEnabled = true;
 
-    /*
+
     const controls = new OrbitControls(camera, renderer.domElement);
     controls.update();
-    */
+
     window.addEventListener('resize', onWindowResize, false);
+    window.addEventListener('resize', this.setWindowHalfValues, false);
 
     function onWindowResize() {
       width = window.innerWidth;
       height = window.innerHeight;
-      windowHalfX = width / 2;
-      windowHalfY = height / 2;
       renderer.setSize(width, height);
       camera.aspect = width / height;
       camera.updateProjectionMatrix();
@@ -140,15 +139,7 @@ class ThreeContainer extends Component {
       color: 0xfdd276,
       flatShading:THREE.FlatShading
     });
-    let purpleMat = new THREE.MeshLambertMaterial ({
-      color: 0x451954,
-      flatShading:THREE.FlatShading
-    });
 
-    let blueMat = new THREE.MeshLambertMaterial ({
-      color: 0xaec6cf,
-      flatShading:THREE.FlatShading
-    });
 
     let redMat = new THREE.MeshLambertMaterial ({
       color: 0xad3525,
@@ -167,15 +158,6 @@ class ThreeContainer extends Component {
 
     let blackMat = new THREE.MeshLambertMaterial ({
       color: 0x302925,
-      flatShading:THREE.FlatShading
-    });
-
-    let grayMat = new THREE.MeshLambertMaterial ({
-      color: 0x737d84,
-      flatShading:THREE.FlatShading
-    });
-    let lightGrayMat = new THREE.MeshLambertMaterial ({
-      color: 0x8f979c,
       flatShading:THREE.FlatShading
     });
 
@@ -429,8 +411,6 @@ class ThreeContainer extends Component {
     this.camera = camera;
     this.lion = lion;
     this.mane = mane;
-    this.windowHalfX = windowHalfX;
-    this.windowHalfY = windowHalfY;
     this.mousePos = mousePos;
 
     this.tHeadRotY = tHeadRotY;
@@ -486,8 +466,8 @@ class ThreeContainer extends Component {
   //game logic
   update () {
     this.renderScene();
-    let xTarget = (this.mousePos.x-this.windowHalfX);
-    let yTarget= (this.mousePos.y-this.windowHalfY);
+    let xTarget = (this.mousePos.x-this.props.windowHalfX);
+    let yTarget= (this.mousePos.y-this.props.windowHalfY);
     if (this.props.isSmiling) {
       this.startSmile(xTarget, yTarget);
     }
@@ -635,7 +615,12 @@ class ThreeContainer extends Component {
   stopSmiling = () => {
     this.props.lionActions.setSmile(false);
   }
-
+  setWindowHalfValues = () => {
+    let width = window.innerWidth;
+    let height = window.innerHeight;
+    this.props.lionActions.setWindowHalfX(width/2);
+    this.props.lionActions.setWindowHalfY(height/2);
+  }
   render () {
 
     const {
@@ -680,6 +665,8 @@ export default connect(
   (state, ownProps) => ({
     liveValues: state.twitch.liveValues,
     isSmiling: state.lion.isSmiling,
+    windowHalfX: state.lion.windowHalfX,
+    windowHalfY: state.lion.windowHalfY,
   }),
   dispatch => ({
     lionActions: bindActionCreators(lionActions, dispatch),
