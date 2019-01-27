@@ -1,0 +1,19 @@
+{
+  "name": "template-invader",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.4",
+    "node-cron": "^2.0.3",
+    "node-fetch": "^2.3.0",
+    "path": "^0.12.7",
+    "socket.io": "^2.2.0"
+  }
+}

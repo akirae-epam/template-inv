@@ -1,0 +1,29 @@
+.label {
+  width: 100%;
+  position: fixed;
+  text-align: center;
+  color: #fff;
+  top: 0px;
+  font-size: 14px;
+  padding: 14px 0px;
+}
+.canvas_container {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background-color: #fff;
+}
+.text_block {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  background-color: rgba(182,103,157,1);
+  padding: 20px 40px;
+  font-family: 'Merienda', Helvetica, sans-serif;
+  font-weight: 600;
+  color: #fff;
+  transition: .2s ease-out;
+}
+.text_block:hover {
+  background-color: rgba(158,76,132,1);
+}
