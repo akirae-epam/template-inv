@@ -124,7 +124,7 @@ class ThreeContainer extends Component {
     mustacheGeom.applyMatrix( new THREE.Matrix4().makeTranslation( 15, 0, 0 ) );
 
     var earGeom = new THREE.BoxGeometry(20,20,20);
-    var noseGeom = new THREE.BoxGeometry(20,20,20);
+    var noseGeom = new THREE.BoxGeometry(35,35,35);
     var eyeGeom = new THREE.BoxGeometry(5,30,30);
     var irisGeom = new THREE.BoxGeometry(4,10,10);
     var mouthGeom = new THREE.BoxGeometry(20,20,10);
@@ -298,7 +298,7 @@ class ThreeContainer extends Component {
 
     // nose
     let nose = new THREE.Mesh(noseGeom, greyMat);
-    nose.position.z = 170;
+    nose.position.z = 160;
     nose.position.y = 25;
 
     // spots
@@ -592,7 +592,7 @@ class ThreeContainer extends Component {
     this.tIrisYScale = 0.1;
     this.tIrisZScale = 3;
 
-    this.tIrisPosY = 20;
+    this.tIrisPosY = 24;
     this.tLeftIrisPosZ = 120;
     this.tRightIrisPosZ = 120;
 
@@ -632,6 +632,7 @@ class ThreeContainer extends Component {
         <div
           className="canvas_container"
           ref={(mount) => { this.mount = mount; }}
+          onMouseEnter={()=>this.stopSmiling()}
         />
         <a href={"https://www.twitch.tv/"+twitchName}
           target="_blank"

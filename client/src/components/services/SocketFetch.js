@@ -22,6 +22,10 @@ class SocketFetch extends React.Component {
     this.socket.on('twitterData', function(res){
       this.props.twitterActions.fetchTwitter(res.data)
     }.bind(this));
+
+    this.socket.on('twitchVods', function(res){
+      this.props.twitchActions.fetchTwitchVods(res.data)
+    }.bind(this));
   }
 
   render() {

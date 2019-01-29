@@ -1,4 +1,5 @@
 export const RECEIVE_TWITTER = Symbol('RECEIVE_TWITTER');
+export const TOGGLE_TWITTER = Symbol('TOGGLE_TWITTER');
 
 export const fetchTwitter = (payload) =>{
   return (dispatch) => {
@@ -16,5 +17,12 @@ export const receiveTwitter = (payload) => {
   return{
     type: RECEIVE_TWITTER,
     payload: payload,
+  };
+};
+
+export const toggleTwitter = (twitterDisplay) => {
+  return{
+    type: TOGGLE_TWITTER,
+    twitterDisplay: twitterDisplay,
   };
 };

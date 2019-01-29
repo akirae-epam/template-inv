@@ -19,14 +19,20 @@
 }
 .text_block {
   position: fixed;
-  right: 20px;
+  right: 80px;
   bottom: 20px;
   background-color: rgba(182,103,157,1);
   padding: 20px 40px;
   color: #fff;
   transition: .2s ease-out;
-  font-size: 24px;
+  font-size: 36px;
 }
 .text_block:hover {
   background-color: rgba(158,76,132,1);
+}
+
+@media screen and (max-width: 768px){
+  .text_block {
+    right: 20px;
+  }
 }

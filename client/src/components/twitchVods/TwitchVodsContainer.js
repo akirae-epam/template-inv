@@ -1,16 +1,17 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import TwitterObject from 'components/TwitterObject';
 import Scrollbar from 'smooth-scrollbar';
+import classNames from 'classnames';
+import TwitchVodsObject from 'components/twitchVods/TwitchVodsObject';
+import FontAwesome from 'react-fontawesome';
+import * as lionActions from 'actions/lion'
 import {bindActionCreators} from 'redux';
-import * as lionActions from 'actions/lion';
-import SocialLogo from 'social-logos';
 
-let twitterName = '';
+let twitchName = '';
 let json = require('config.json');
-twitterName = json.twitterName;
+twitchName = json.twitchName;
 
-class TwitterContainer extends React.Component{
+class TwitchVodsContainer extends React.Component{
 
   componentDidMount() {
     const scrollbar = Scrollbar.init(document.querySelector('#twitter__wrapper'), {
@@ -18,6 +19,7 @@ class TwitterContainer extends React.Component{
     });
     this.scrollbar = scrollbar;
   }
+
   setSmiling = () => {
     this.props.lionActions.setSmile(true);
   }
@@ -28,37 +30,44 @@ class TwitterContainer extends React.Component{
   render(){
 
     const {
-      isVisible,
+      twitchVodValues,
+      transitionStatus,
     } = this.props;
 
-    const { twitterValues } = this.props;
+    const wrapperName= classNames(
+      'twitter__wrapper',
+      {
+        'twitter__wrapper--hidden': transitionStatus === 'start' || transitionStatus === 'end',
+      }
+    );
 
     return(
       <div
-        className="twitter__wrapper"
+        className={wrapperName}
         id="twitter__wrapper"
         onMouseEnter={()=>this.setSmiling()}
         onMouseLeave={()=>this.stopSmiling()}
       >
         <div className="twitter_header">
           <a
-            href={'https://twitter.com/'+twitterName}
+            href={'https://twitch.tv/'+twitchName}
             target='_blank'
             rel='noopener noreferrer'
           >
-          <SocialLogo className="twitter_header__icon" icon="twitter" size={48}/>
-          &nbsp;@{twitterName}
+          <FontAwesome name="twitch"/>
+          &nbsp;{twitchName}
           </a>
         </div>
         <div className="twitter__container">
-          {twitterValues.length >= 4 ? twitterValues.map((value, index)=>(
+          {twitchVodValues.length >= 4 ? twitchVodValues.map((value, index)=>(
             <div key={index} onLoad={()=>this.scrollbar.update()}>
-              <TwitterObject
-                timestamp = {value.created_at}
-                text={value.full_text}
-                extendedEntities = {value.extended_entities}
-                twitterId = {value.id_str}
-              />
+              <TwitchVodsObject
+                title = {value.title}
+                url = {value.url}
+                views = {value.views}
+                preview = {value.preview}
+                created_at = {value.created_at}
+                />
             </div>
           )):null}
         </div>
@@ -69,9 +78,11 @@ class TwitterContainer extends React.Component{
 
 export default connect(
   (state, ownProps) => ({
-    twitterValues: state.twitter.twitterValues,
+    transitionStatus: state.transition.transitionStatus,
+    twitterDisplay: state.twitter.twitterDisplay,
+    twitchVodValues: state.twitch.twitchVodValues,
   }),
   dispatch => ({
     lionActions: bindActionCreators(lionActions, dispatch),
   }),
-)(TwitterContainer);
+)(TwitchVodsContainer);

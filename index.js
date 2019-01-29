@@ -25,6 +25,8 @@ consumerSecret = json.consumersecret;
 accessToken = json.accesstoken;
 accessSecret = json.accesssecret;
 
+let twitchVodData = {};
+
 // Serve static files from the React app
 app.use(express.static(path.join(__dirname, 'client/build')));
 
@@ -51,6 +53,7 @@ let isLive = false;
 io.on('connection', (socket) => {
   io.emit('twitchLive', {username: TWITCH_USERNAME, isLive: isLive});
   io.emit('twitterData', {data: twitterData});
+  io.emit('twitchVods', {data: twitchVodData});
 });
 /*======================================
 =                TWITTER               =
@@ -107,5 +110,20 @@ cron.schedule("* * * * *", function() {
         io.emit('twitchLive', {username: TWITCH_USERNAME, isLive: isLive});
       }
     }
+  );
+});
+/*======================================
+=             TWITCH VODS             =
+======================================*/
+
+cron.schedule("* * * * *", function() {
+  fetch("https://api.twitch.tv/kraken/channels/"+TWITCH_USERNAME+"/videos?client_id="+twitchKey+"&broadcasts=true")
+    .then(res => res.json())
+    .then(body => {
+      if (body){
+        twitchVodData = body.videos;
+        io.emit('twitchVods', {data: twitchVodData});
+    }
+  }
   );
 });

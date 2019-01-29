@@ -119,7 +119,7 @@ class TwitterObject extends React.Component{
           extendedEntities = {extendedEntities}
         />
 
-        <div>
+        <div className="twitter_time">
           {timeText}
         </div>
 
