@@ -6,7 +6,7 @@ let Twitter = require('twitter');
 
 const path = require('path');
 const app = express();
-
+const http = require("http");
 
 let twitchKey;
 let TWITCH_USERNAME;
@@ -42,19 +42,17 @@ const port = process.env.PORT || 1506;
 /*======================================
 =           SOCKET IO           =
 ======================================*/
-server = app.listen(port, function(){
-  console.log(`server is running on port ${port}`)
-})
-
-io = socket(server);
-
+const server = http.createServer(app);
+const io = socket(server);
 let isLive = false;
 
 io.on('connection', (socket) => {
-  io.emit('twitchLive', {username: TWITCH_USERNAME, isLive: isLive});
-  io.emit('twitterData', {data: twitterData});
-  io.emit('twitchVods', {data: twitchVodData});
+  socket.emit('twitchLive', {username: TWITCH_USERNAME, isLive: isLive});
+  socket.emit('twitterData', {data: twitterData});
+  socket.emit('twitchVods', {data: twitchVodData});
 });
+
+server.listen(port, () => console.log(`Listening on port ${port}`));
 /*======================================
 =                TWITTER               =
 ======================================*/

@@ -3,7 +3,7 @@ import * as THREE from 'three';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as lionActions from 'actions/lion';
-var OrbitControls = require('three-orbit-controls')(THREE)
+var OrbitControls = require('three-orbit-controls')(THREE);
 
 /* Original from here: https://codepen.io/Yakudoo/pen/YXxmYR */
 
@@ -526,7 +526,7 @@ class ThreeContainer extends Component {
     this.tSmileRotZ = -Math.PI;
 
     this.tRightKneeRotZ = this.rule3(xTarget, -200, 200, .3-Math.PI/8, .3+Math.PI/8);
-    this.tLeftKneeRotZ = this.rule3(xTarget, -200, 200, -.3-Math.PI/8, -.3+Math.PI/8)
+    this.tLeftKneeRotZ = this.rule3(xTarget, -200, 200, -.3-Math.PI/8, -.3+Math.PI/8);
     this.updateBody(10);
 
     this.mane.rotation.y = 0;
@@ -634,23 +634,23 @@ class ThreeContainer extends Component {
           ref={(mount) => { this.mount = mount; }}
           onMouseEnter={()=>this.stopSmiling()}
         />
-        <a href={"https://www.twitch.tv/"+twitchName}
+        <a href={'https://www.twitch.tv/'+twitchName}
           target="_blank"
           rel="noopener noreferrer"
         >
-        {isLive ?
-          <div
-            className="text_block"
-            onMouseEnter={()=>this.setSmiling()}
-            onMouseLeave={()=>this.stopSmiling()}
+          {isLive ?
+            <div
+              className="text_block"
+              onMouseEnter={()=>this.setSmiling()}
+              onMouseLeave={()=>this.stopSmiling()}
             >
-            Stream is online
+              Stream is online
             </div>
             :
             <div
-            className="text_block"
-            onMouseEnter={()=>this.setSmiling()}
-            onMouseLeave={()=>this.stopSmiling()}
+              className="text_block"
+              onMouseEnter={()=>this.setSmiling()}
+              onMouseLeave={()=>this.stopSmiling()}
             >
             Stream is offline
             </div>

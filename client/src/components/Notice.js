@@ -29,11 +29,11 @@ class Notice extends React.Component{
         onMouseLeave={()=>this.leaveNotice()}
       >
         {hoverNotice?
-        <span>Destiny's #compsci discord for details.</span>
-        :
-        <span>?</span>
+          <span>Destiny's #compsci discord for details.</span>
+          :
+          <span>?</span>
         }
-        </div>
+      </div>
     );
   }
 }

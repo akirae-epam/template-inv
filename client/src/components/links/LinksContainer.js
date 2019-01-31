@@ -4,19 +4,20 @@ import Scrollbar from 'smooth-scrollbar';
 import classNames from 'classnames';
 import {bindActionCreators} from 'redux';
 import * as lionActions from 'actions/lion';
+import FontAwesome from 'react-fontawesome';
 
 let twitchLink = '';
 let twitterLink = '';
 let instagramLink = '';
 let discordLink = '';
-let streamlabsLink = '';
+let streamelementsLink = '';
 
 let json = require('config.json');
 twitchLink = 'https://www.twitch.tv/'+json.twitchName;
 twitterLink = 'https://twitter.com/'+json.twitterName;
 instagramLink = 'https://instagram.com/'+json.instagramName;
 discordLink = json.discordLink;
-streamlabsLink = 'https://streamlabs.com/'+json.streamlabsName;
+streamelementsLink = 'https://streamelements.com/'+json.streamelementsName+'/tip';
 
 class LinksContainer extends React.Component{
 
@@ -40,11 +41,11 @@ class LinksContainer extends React.Component{
     } = this.props;
 
     const linksArray = [
-      {text: 'Twitch', link: twitchLink},
-      {text: 'Discord', link: discordLink},
-      {text: 'Streamlabs', link: streamlabsLink},
-      {text: 'Instagram', link: instagramLink},
-      {text: 'Twitter', link: twitterLink},
+      {text: 'Twitch', link: twitchLink, icon: 'twitch'},
+      {text: 'Discord', link: discordLink, icon: 'gamepad'},
+      {text: 'Streamlabs', link: streamelementsLink, icon: 'heart'},
+      {text: 'Instagram', link: instagramLink, icon: 'instagram'},
+      {text: 'Twitter', link: twitterLink, icon: 'twitter'},
     ];
 
     const wrapperName= classNames(
@@ -72,7 +73,7 @@ class LinksContainer extends React.Component{
               >
                 <a href={value.link} className="links_link__container">
                   <div key={key}>
-                  {value.text}
+                    <FontAwesome name={value.icon}/>&nbsp;&nbsp;{value.text}
                   </div>
                 </a>
               </div>
@@ -80,14 +81,13 @@ class LinksContainer extends React.Component{
           }
         </div>
       </div>
-    )
+    );
   }
 }
 
 export default connect(
   (state, ownProps) => ({
     transitionStatus: state.transition.transitionStatus,
-    twitterDisplay: state.twitter.twitterDisplay,
   }),
   dispatch => ({
     lionActions: bindActionCreators(lionActions, dispatch),

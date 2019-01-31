@@ -7,17 +7,16 @@ export const setSmile = (payload) =>{
     type: SET_SMILE,
     payload,
   };
-}
-
+};
 export const setWindowHalfX = (payload) =>{
   return{
     type: SET_WINDOW_HALF_X,
     payload,
   };
-}
+};
 export const setWindowHalfY = (payload) =>{
   return{
     type: SET_WINDOW_HALF_Y,
     payload,
   };
-}
+};

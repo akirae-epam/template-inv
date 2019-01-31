@@ -6,17 +6,16 @@ import FontAwesome from 'react-fontawesome';
 import {bindActionCreators} from 'redux';
 import * as lionActions from 'actions/lion';
 
+let streamelementsLink = '';
 let twitchName = '';
 let json = require('config.json');
 twitchName = json.twitchName;
+streamelementsLink = 'https://streamelements.com/'+json.streamelementsName+'/tip';
 
 class Navbar extends React.Component{
 
-  setSmiling = () => {
-    this.props.lionActions.setSmile(true);
-  }
-  stopSmiling = () => {
-    this.props.lionActions.setSmile(false);
+  toggleSmile = (bool) => {
+    this.props.lionActions.setSmile(bool);
   }
 
   render(){
@@ -25,79 +24,70 @@ class Navbar extends React.Component{
       loadedContent,
     } = this.props;
 
+    const navbarArray = [
+      {text: 'Home', route: siteRoutes.home, icon: 'home'},
+      {text: 'Twitter Feed', route: siteRoutes.twitter, icon: 'twitter'},
+      {text: 'Twitch Vods', route: siteRoutes.twitchVods, icon: 'folder'},
+      {text: 'Links and Social Media', route: siteRoutes.links, icon: 'external-link'},
+      {text: 'Big Screen', route: siteRoutes.twitchScreen, icon: 'tv'},
+    ];
+
     return(
-      <div
-        className="navbar_wrapper"
-      >
+      <div className="navbar_wrapper">
 
-        {loadedContent[siteRoutes.home]?
-          <div className="navbar_option">
-            <FontAwesome name="home"/>
-          </div>
-          :
-          <Link to={siteRoutes.home}
-            onMouseEnter={()=>this.setSmiling()}
-            onMouseLeave={()=>this.stopSmiling()}>
-            <div className="navbar_option">
-              <FontAwesome name="home"/>
+        {navbarArray.map((value, key) => (
+          loadedContent[value.route] ?
+            <div className="navbar_option" key={key}>
+              <FontAwesome name={value.icon}/>
             </div>
-          </Link>
+            :
+            <div
+              className="navbar_option__container"
+              onMouseEnter={()=>this.toggleSmile(true)}
+              onMouseLeave={()=>this.toggleSmile(false)}
+              key={key}
+            >
+              <Link to={value.route}>
+                <div className="navbar_option">
+                  <FontAwesome name={value.icon}/>
+                </div>
+                <div className="navbar_option__overlay">
+                  {value.text}
+                </div>
+              </Link>
+            </div>
+        ))
         }
 
-        {loadedContent[siteRoutes.twitter]?
-          <div className="navbar_option">
-            <FontAwesome name="twitter"/>
-          </div>
-          :
-          <Link to={siteRoutes.twitter}
-            onMouseEnter={()=>this.setSmiling()}
-            onMouseLeave={()=>this.stopSmiling()}>
+        <div className="navbar_option__container">
+          <a
+            href={'https://twitch.tv/'+twitchName+'/subscribe'}
+            target='_blank'
+            rel='noopener noreferrer'
+          >
             <div className="navbar_option">
-              <FontAwesome name="twitter"/>
+              <FontAwesome name="heartbeat"/>
             </div>
-          </Link>
-        }
+            <div className="navbar_option__overlay">
+              Subscribe
+            </div>
+          </a>
+        </div>
 
-        {loadedContent[siteRoutes.twitchVods]?
-          <div className="navbar_option">
-            <FontAwesome name="folder"/>
-          </div>
-          :
-          <Link to={siteRoutes.twitchVods}
-            onMouseEnter={()=>this.setSmiling()}
-            onMouseLeave={()=>this.stopSmiling()}>
+        <div className="navbar_option__container">
+          <a
+            href={streamelementsLink}
+            target='_blank'
+            rel='noopener noreferrer'
+          >
             <div className="navbar_option">
-              <FontAwesome name="folder"/>
+              <FontAwesome name="heart"/>
             </div>
-          </Link>
-        }
-
-        {/*loadedContent[siteRoutes.twitchScreen]?
-          <div className="navbar_option">
-            <FontAwesome name="twitch"/>
-          </div>
-          :
-          <Link to={siteRoutes.twitchScreen}>
-            <div className="navbar_option">
-              <FontAwesome name="twitch"/>
+            <div className="navbar_option__overlay">
+              Donate
             </div>
-          </Link>
-        */}
-
-        {loadedContent[siteRoutes.links]?
-          <div className="navbar_option">
-            <FontAwesome name="external-link"/>
-          </div>
-          :
-          <Link to={siteRoutes.links}
-            onMouseEnter={()=>this.setSmiling()}
-            onMouseLeave={()=>this.stopSmiling()}>
-            <div className="navbar_option">
-              <FontAwesome name="external-link"/>
-            </div>
-          </Link>
-        }
-
+          </a>
+        </div>
       </div>
     );
   }

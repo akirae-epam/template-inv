@@ -4,4 +4,5 @@ export const siteRoutes = {
   twitchVods: '/twitch-vods',
   twitchScreen: '/twitch-screen',
   links: '/links',
+  twitchVodSingle: '/twitch-video',
 };

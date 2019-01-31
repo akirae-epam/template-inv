@@ -1,4 +1,44 @@
 .twitch_image {
   width: 100%;
-  margin-top: 14px;
+  height: 100%;
+  transition: .25s cubic-bezier(.79,.28,.42,.8);
+  object-fit: cover;
+  transition: .2s ease-out;
+  display: block;
+}
+.twitch_image:hover {
+  transform: scale(1.05, 1.05);
+}
+.twitch_image__wrapper {
+  overflow: hidden;
+  margin: 14px 0px;
+}
+.twitch_icon {
+  color: #6441a5;
+  transition: .2s ease-out;
+}
+.twitch_icon:hover,
+.twitch_header:hover .twitch_icon {
+  color: #432b6e;
+}
+.twitch_header {
+  font-size: 36px;
+  display: flex;
+  justify-content: center;
+}
+.twitch__container a,
+.twitch_header a {
+  color: #6441a5;
+  text-decoration: none;
+  transition: .2s ease-out;
+}
+.twitch__container a:hover,
+.twitch_header:hover a {
+  color: #432b6e;
+}
+
+.twitch_object {
+  margin-bottom: 14px;
+  padding-bottom: 14px;
+  border-bottom: 2px solid rgba(182,103,157,1);
 }

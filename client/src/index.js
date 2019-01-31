@@ -9,11 +9,11 @@ import Store, { history } from './store';
 const StoreInstance = Store();
 
 ReactDOM.render(
-<Provider store={StoreInstance}>
-  <ConnectedRouter history={history}>
-    <div>
-      <App />
-    </div>
-  </ConnectedRouter>
-</Provider>
-, document.getElementById('root'));
+  <Provider store={StoreInstance}>
+    <ConnectedRouter history={history}>
+      <div>
+        <App />
+      </div>
+    </ConnectedRouter>
+  </Provider>
+  , document.getElementById('root'));

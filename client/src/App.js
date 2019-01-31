@@ -10,6 +10,7 @@ import 'styles/twitter.css';
 import 'styles/navbar.css';
 import 'styles/links.css';
 import 'styles/twitchVods.css';
+import 'styles/bigscreen.css';
 
 class App extends Component {
   render() {

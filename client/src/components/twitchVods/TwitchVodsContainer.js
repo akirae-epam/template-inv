@@ -1,11 +1,11 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
 import Scrollbar from 'smooth-scrollbar';
 import classNames from 'classnames';
 import TwitchVodsObject from 'components/twitchVods/TwitchVodsObject';
 import FontAwesome from 'react-fontawesome';
-import * as lionActions from 'actions/lion'
-import {bindActionCreators} from 'redux';
+import * as lionActions from 'actions/lion';
 
 let twitchName = '';
 let json = require('config.json');
@@ -14,17 +14,14 @@ twitchName = json.twitchName;
 class TwitchVodsContainer extends React.Component{
 
   componentDidMount() {
-    const scrollbar = Scrollbar.init(document.querySelector('#twitter__wrapper'), {
+    const scrollbar = Scrollbar.init(document.querySelector('#twitch__wrapper'), {
       alwaysShowTracks: true,
     });
     this.scrollbar = scrollbar;
   }
 
-  setSmiling = () => {
-    this.props.lionActions.setSmile(true);
-  }
-  stopSmiling = () => {
-    this.props.lionActions.setSmile(false);
+  toggleSmile = (bool) => {
+    this.props.lionActions.setSmile(bool);
   }
 
   render(){
@@ -44,17 +41,19 @@ class TwitchVodsContainer extends React.Component{
     return(
       <div
         className={wrapperName}
-        id="twitter__wrapper"
-        onMouseEnter={()=>this.setSmiling()}
-        onMouseLeave={()=>this.stopSmiling()}
+        id="twitch__wrapper"
       >
-        <div className="twitter_header">
+        <div
+          className="twitch_header"
+          onMouseEnter={()=>this.toggleSmile(true)}
+          onMouseLeave={()=>this.toggleSmile(false)}
+        >
           <a
             href={'https://twitch.tv/'+twitchName}
             target='_blank'
             rel='noopener noreferrer'
           >
-          <FontAwesome name="twitch"/>
+            <FontAwesome name="twitch"/>
           &nbsp;{twitchName}
           </a>
         </div>
@@ -67,12 +66,12 @@ class TwitchVodsContainer extends React.Component{
                 views = {value.views}
                 preview = {value.preview}
                 created_at = {value.created_at}
-                />
+              />
             </div>
           )):null}
         </div>
       </div>
-    )
+    );
   }
 }
 

@@ -1,11 +1,11 @@
 import {
   RECEIVE_TWITTER,
-  TOGGLE_TWITTER,
+  SELECT_TWITTER_IMAGE,
 } from 'actions/twitter';
 
 const DEFAULT_STATE={
   twitterValues: {},
-  twitterDisplay: true,
+  twitterImage: '',
 };
 
 export default(state=DEFAULT_STATE, payload)=>
@@ -16,10 +16,10 @@ export default(state=DEFAULT_STATE, payload)=>
       ...state,
       twitterValues: payload.payload
     };
-  case TOGGLE_TWITTER:
+  case SELECT_TWITTER_IMAGE:
     return state = {
       ...state,
-      twitterDisplay:payload.twitterDisplay
+      twitterImage:payload.twitterImage
     };
   default:
     return state;

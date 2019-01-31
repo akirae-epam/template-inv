@@ -1,9 +1,17 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
 import moment from 'moment';
-import SocialLogo from 'social-logos';
+import * as lionActions from 'actions/lion';
+import {Link} from 'react-router-dom';
+import {siteRoutes} from 'data/siteRoutes';
 
 class TwitchObject extends React.Component{
+
+  toggleSmile = (bool) => {
+    this.props.lionActions.setSmile(bool);
+  }
+
   render(){
     const {
       title,
@@ -14,24 +22,26 @@ class TwitchObject extends React.Component{
     } = this.props;
 
     let timeText = moment(created_at).fromNow();
-
     return(
-      <div className="twitter_object">
-        <a
-          href={url}
-          target='_blank'
-          rel='noopener noreferrer'
-        >
-          <img src={preview} alt="title" className="twitch_image"/>
-        </a>
-          <strong>
-            {title}
-          </strong>
-          <br/>
-          {timeText}
-          <br/>
-          {views} views
-
+      <div className="twitch_object">
+        <div className="twitch_image__wrapper">
+          <Link to={siteRoutes.twitchVodSingle + '/' + url.slice(29)}>
+            <img
+              src={preview}
+              alt="title"
+              className="twitch_image"
+              onMouseEnter={()=>this.toggleSmile(true)}
+              onMouseLeave={()=>this.toggleSmile(false)}
+            />
+          </Link>
+        </div>
+        <strong>
+          {title}
+        </strong>
+        <br/>
+        {timeText}
+        <br/>
+        {views} views
       </div>
     );
   }
@@ -41,5 +51,6 @@ export default connect(
   (state, ownProps) => ({
   }),
   dispatch => ({
+    lionActions: bindActionCreators(lionActions, dispatch),
   }),
 )(TwitchObject);

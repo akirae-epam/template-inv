@@ -2,10 +2,8 @@ import React from 'react';
 import {connect} from 'react-redux';
 import TwitterObject from 'components/twitter/TwitterObject';
 import Scrollbar from 'smooth-scrollbar';
-import {bindActionCreators} from 'redux';
-import * as lionActions from 'actions/lion';
-import SocialLogo from 'social-logos';
 import classNames from 'classnames';
+import FontAwesome from 'react-fontawesome';
 
 let twitterName = '';
 let json = require('config.json');
@@ -18,12 +16,6 @@ class TwitterContainer extends React.Component{
       alwaysShowTracks: true,
     });
     this.scrollbar = scrollbar;
-  }
-  setSmiling = () => {
-    this.props.lionActions.setSmile(true);
-  }
-  stopSmiling = () => {
-    this.props.lionActions.setSmile(false);
   }
 
   render(){
@@ -44,8 +36,6 @@ class TwitterContainer extends React.Component{
       <div
         className={wrapperName}
         id="twitter__wrapper"
-        onMouseEnter={()=>this.setSmiling()}
-        onMouseLeave={()=>this.stopSmiling()}
       >
         <div className="twitter_header">
           <a
@@ -53,7 +43,7 @@ class TwitterContainer extends React.Component{
             target='_blank'
             rel='noopener noreferrer'
           >
-          <SocialLogo className="twitter_header__icon" icon="twitter" size={48}/>
+            <FontAwesome name="twitter" className="twitter_icon"/>
           &nbsp;@{twitterName}
           </a>
         </div>
@@ -70,7 +60,7 @@ class TwitterContainer extends React.Component{
           )):null}
         </div>
       </div>
-    )
+    );
   }
 }
 
@@ -80,6 +70,5 @@ export default connect(
     twitterValues: state.twitter.twitterValues,
   }),
   dispatch => ({
-    lionActions: bindActionCreators(lionActions, dispatch),
   }),
 )(TwitterContainer);
