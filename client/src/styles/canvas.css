@@ -33,6 +33,10 @@
 
 @media screen and (max-width: 768px){
   .text_block {
-    right: 20px;
+    right: 0px;
+    width: 100vw;
+    box-sizing: border-box;
+    bottom: 0px;
+    text-align: center;
   }
 }

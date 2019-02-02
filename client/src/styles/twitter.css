@@ -4,7 +4,7 @@
   top: 0px;
   width: 450px;
   height: 100vh;
-  background-color: rgba(189, 160, 165, .9);
+  background-color: rgba(189, 160, 165, .97);
   transition: .4s ease-out;
 }
 .twitter__wrapper--hidden {
@@ -55,6 +55,19 @@
   display: flex;
   justify-content: center;
 }
+.twitter_object__bottom {
+  display: flex;
+  margin-top: 16px;
+  justify-content: space-between;
+}
+.twitter_object__actions {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.twitter_object__action {
+  padding: 0px 6px;
+}
 
 @media screen and (max-width: 768px) {
   .twitter__wrapper {
@@ -73,7 +86,6 @@
 /*======================================
 =          TWITTER LIGHTBOX           =
 ======================================*/
-
 .twitter_lightbox__wrapper {
   position: fixed;
   width: 100%;

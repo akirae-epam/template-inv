@@ -3,6 +3,9 @@ import * as THREE from 'three';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as lionActions from 'actions/lion';
+import {Link} from 'react-router-dom';
+import {siteRoutes} from 'data/siteRoutes';
+
 var OrbitControls = require('three-orbit-controls')(THREE);
 
 /* Original from here: https://codepen.io/Yakudoo/pen/YXxmYR */
@@ -377,7 +380,7 @@ class ThreeContainer extends Component {
     head.add(mouth);
     head.add(smile);
     head.add(lips);
-    /*
+
     head.add(spot1);
     head.add(spot2);
     head.add(spot3);
@@ -386,7 +389,6 @@ class ThreeContainer extends Component {
     head.add(spot6);
     head.add(spot7);
     head.add(spot8);
-    */
 
     lion.add(body);
     lion.add(leftKnee);
@@ -634,10 +636,7 @@ class ThreeContainer extends Component {
           ref={(mount) => { this.mount = mount; }}
           onMouseEnter={()=>this.stopSmiling()}
         />
-        <a href={'https://www.twitch.tv/'+twitchName}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        <Link to={siteRoutes.twitchScreen}>
           {isLive ?
             <div
               className="text_block"
@@ -655,7 +654,7 @@ class ThreeContainer extends Component {
             Stream is offline
             </div>
           }
-        </a>
+        </Link>
       </div>
     );
   }

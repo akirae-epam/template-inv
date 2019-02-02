@@ -136,8 +136,40 @@ class TwitterObject extends React.Component{
           openImage = {this.openImage}
         />
 
-        <div className="twitter_time">
-          {timeText}
+        <div className="twitter_object__bottom">
+          <div className="twitter_time">
+            {timeText}
+          </div>
+          <div
+            className="twitter_object__actions"
+            onMouseEnter={()=>this.toggleSmile(true)}
+            onMouseLeave={()=>this.toggleSmile(false)}
+          >
+            <a
+              href={'https://twitter.com/intent/tweet?in_reply_to='+twitterId}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="twitter_object__action"
+            >
+              <FontAwesome name="reply"/>
+            </a>
+            <a
+              href={'https://twitter.com/intent/retweet?tweet_id='+twitterId}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="twitter_object__action"
+            >
+              <FontAwesome name="retweet"/>
+            </a>
+            <a
+              href={'https://twitter.com/intent/favorite?tweet_id='+twitterId}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="twitter_object__action"
+            >
+              <FontAwesome name="heart"/>
+            </a>
+          </div>
         </div>
       </div>
     );

@@ -43,7 +43,7 @@ class LinksContainer extends React.Component{
     const linksArray = [
       {text: 'Twitch', link: twitchLink, icon: 'twitch'},
       {text: 'Discord', link: discordLink, icon: 'gamepad'},
-      {text: 'Streamlabs', link: streamelementsLink, icon: 'heart'},
+      {text: 'StreamElements', link: streamelementsLink, icon: 'heart'},
       {text: 'Instagram', link: instagramLink, icon: 'instagram'},
       {text: 'Twitter', link: twitterLink, icon: 'twitter'},
     ];

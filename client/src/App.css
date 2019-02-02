@@ -6,10 +6,34 @@ body {
   overflow: hidden;
 }
 
-.notice {
+.title {
   position: absolute;
-  top: 10px;
-  right: 10px;
-  font-size: 14px;
-  cursor: crosshair;
+  top: 36px;
+  left: 36px;
+  font-size: 6vw;
+}
+.title a {
+  text-decoration: none;
+  color: rgba(182,103,157,1);
+  transition: .2s ease-out;
+}
+.title a:hover {
+  color: rgba(158,76,132,1);
+}
+.title_body {
+  font-size: 1.2vw;
+  width: 33vw;
+}
+
+@media screen and (max-width: 768px) {
+  .title {
+    font-size: 14vw;
+    top: 70px;
+    left: 0px;
+    text-align: center;
+    width: 100%;
+  }
+  .title_body {
+    display: none;
+  }
 }
