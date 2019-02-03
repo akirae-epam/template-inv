@@ -635,6 +635,7 @@ class ThreeContainer extends Component {
           className="canvas_container"
           ref={(mount) => { this.mount = mount; }}
           onMouseEnter={()=>this.stopSmiling()}
+          onLoad = {() => this.props.lionActions.lionLoaded()}
         />
         <Link to={siteRoutes.twitchScreen}>
           {isLive ?

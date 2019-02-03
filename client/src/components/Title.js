@@ -22,9 +22,12 @@ class Title extends React.Component{
         onMouseEnter={()=>this.toggleSmile(true)}
         onMouseLeave={()=>this.toggleSmile(false)}
       >
-        <Link to={siteRoutes.twitchScreen}>
-          {title}
-        </Link>
+
+        <div className="title_title">
+          <Link to={siteRoutes.twitchScreen}>
+            {title}
+          </Link>
+        </div>
 
         <div className="title_body">
           Effervescent [ef-er-ves-uh nt]:

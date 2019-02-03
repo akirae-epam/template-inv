@@ -11,15 +11,33 @@ body {
   top: 36px;
   left: 36px;
   font-size: 6vw;
+  z-index: 2;
 }
-.title a {
+.title_title {
+  position: relative;
+  text-decoration: none;
+}
+.title_title a{
   text-decoration: none;
   color: rgba(182,103,157,1);
-  transition: .2s ease-out;
+  color: rgba(182,103,157,1);
 }
-.title a:hover {
-  color: rgba(158,76,132,1);
+.title_title:after{
+	content: "";
+	display: block;
+	position:  absolute;
+	top: 42%;
+	width: 0px;
+	height: 36%;
+	background-color: #E59500;
+	opacity:  .6;
+	z-index: -1;
+	transition:  all .3s ease-in-out;
 }
+.title_title:hover:after{
+	width: 100%;
+}
+
 .title_body {
   font-size: 1.2vw;
   width: 33vw;

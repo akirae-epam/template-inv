@@ -90,7 +90,6 @@ cron.schedule("* * * * *", function() {
   fetch("https://api.twitch.tv/kraken/streams/"+TWITCH_USERNAME+"?client_id="+twitchKey)
     .then(res => res.json())
     .then(body => {
-      console.log(body);
       if (body.stream){
         if (body.stream.stream_type==="live"){
           isLive = true;

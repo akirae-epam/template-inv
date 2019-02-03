@@ -1,13 +1,3 @@
-.label {
-  width: 100%;
-  position: fixed;
-  text-align: center;
-  color: #fff;
-  top: 0px;
-  font-size: 14px;
-  padding: 14px 0px;
-}
-
 .canvas_container {
   position: absolute;
   top: 0px;
@@ -26,8 +16,20 @@
   transition: .2s ease-out;
   font-size: 6vw;
 }
-.text_block:hover {
-  color: rgba(158,76,132,1);
+.text_block:after{
+	content: "";
+	display: block;
+	position:  absolute;
+	top: 42%;
+	width: 0px;
+	height: 36%;
+	background-color: #E59500;
+	opacity:  .6;
+	z-index: -1;
+	transition:  all .3s ease-in-out;
+}
+.text_block:hover:after{
+	width: 100%;
 }
 
 @media screen and (max-width: 768px){
