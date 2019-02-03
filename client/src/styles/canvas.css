@@ -38,6 +38,7 @@
     width: 100vw;
     box-sizing: border-box;
     bottom: 0px;
+    padding: 20px 0px;
     text-align: center;
   }
 }

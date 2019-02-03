@@ -467,6 +467,9 @@ class ThreeContainer extends Component {
 
   //game logic
   update () {
+    if (!this.props.lionLoaded) {
+      this.props.lionActions.lionLoaded();
+    }
     this.renderScene();
     let xTarget = (this.mousePos.x-this.props.windowHalfX);
     let yTarget= (this.mousePos.y-this.props.windowHalfY);
@@ -635,7 +638,6 @@ class ThreeContainer extends Component {
           className="canvas_container"
           ref={(mount) => { this.mount = mount; }}
           onMouseEnter={()=>this.stopSmiling()}
-          onLoad = {() => this.props.lionActions.lionLoaded()}
         />
         <Link to={siteRoutes.twitchScreen}>
           {isLive ?
@@ -663,6 +665,7 @@ class ThreeContainer extends Component {
 
 export default connect(
   (state, ownProps) => ({
+    lionLoaded: state.lion.lionLoaded,
     liveValues: state.twitch.liveValues,
     isSmiling: state.lion.isSmiling,
     windowHalfX: state.lion.windowHalfX,
