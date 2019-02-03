@@ -3,6 +3,7 @@ const cron = require("node-cron");
 const express = require('express');
 let socket = require('socket.io');
 let Twitter = require('twitter');
+var request = require("request");
 
 const path = require('path');
 const app = express();
@@ -11,6 +12,7 @@ const http = require("http");
 let twitchKey;
 let TWITCH_USERNAME;
 let TWITTER_USERNAME;
+let INSTAGRAM_USERNAME;
 let consumerKey;
 let consumerSecret;
 let accessToken;
@@ -20,10 +22,14 @@ let json = require('./config.json');
 twitchKey = json.twitchKey;
 TWITCH_USERNAME = json.twitchName;
 TWITTER_USERNAME = json.twitterName;
+INSTAGRAM_USERNAME = json.instagramName;
 consumerKey= json.consumerkey;
 consumerSecret = json.consumersecret;
 accessToken = json.accesstoken;
 accessSecret = json.accesssecret;
+instagramId = json.instagramId;
+instagramSecret = json.instagramSecret;
+instagramToken = json.instagramToken;
 
 // Serve static files from the React app
 app.use(express.static(path.join(__dirname, 'client/build')));
@@ -33,7 +39,6 @@ app.use(express.static(path.join(__dirname, 'client/build')));
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname+'/client/build/index.html'));
 });
-
 
 const port = process.env.PORT || 1506;
 
@@ -49,6 +54,7 @@ let socialMediaData = {
   twitchVodData: {},
   twitchFollowers: {},
   isLive: {},
+  instagramFollowers: {},
 };
 
 io.on('connection', (socket) => {
@@ -136,4 +142,17 @@ cron.schedule("* * * * *", function() {
     }
   }
   );
+});
+
+/*======================================
+=                INSTAGRAM               =
+======================================*/
+
+cron.schedule("* * * * *", function() {
+  request({uri: "https://www.instagram.com/"+INSTAGRAM_USERNAME},
+    function(error, response, body) {
+      if(body.indexOf(("meta property=\"og:description\" content=\"")) != -1){
+        socialMediaData.instagramFollowers = body.split("meta property=\"og:description\" content=\"")[1].split("Followers")[0].replace(/,/g,'');
+      }
+  });
 });

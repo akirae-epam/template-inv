@@ -11,10 +11,6 @@ var OrbitControls = require('three-orbit-controls')(THREE);
 
 /* Original from here: https://codepen.io/Yakudoo/pen/YXxmYR */
 
-let twitchName = '';
-let json = require('config.json');
-twitchName = json.twitchName;
-
 class ThreeContainer extends Component {
   constructor(props) {
     super(props);

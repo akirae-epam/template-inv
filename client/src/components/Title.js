@@ -17,13 +17,12 @@ class Title extends React.Component{
 
   render(){
     return(
-      <div
-        className="title"
-        onMouseEnter={()=>this.toggleSmile(true)}
-        onMouseLeave={()=>this.toggleSmile(false)}
-      >
-
-        <div className="title_title">
+      <div className="title">
+        <div
+          className="title_title"
+          onMouseEnter={()=>this.toggleSmile(true)}
+          onMouseLeave={()=>this.toggleSmile(false)}
+        >
           <Link to={siteRoutes.twitchScreen}>
             {title}
           </Link>

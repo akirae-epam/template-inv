@@ -7,13 +7,16 @@ import {bindActionCreators} from 'redux';
 import {
   selectTwitterFollowerCountThousands,
   selectTwitchFollowerCountThousands,
+  selectInstagramFollowerCountThousands,
 } from 'reducers';
 
 let twitterName = '';
 let twitchName = '';
+let instagramName = '';
 let json = require('config.json');
 twitterName = json.twitterName;
 twitchName = json.twitchName;
+instagramName = json.instagramName;
 
 class SocialMediaCount extends React.Component{
 
@@ -25,6 +28,7 @@ class SocialMediaCount extends React.Component{
     const {
       twitterFollowerCount,
       twitchFollowerCount,
+      instagramFollowerCount,
     } = this.props;
 
     return(
@@ -48,6 +52,7 @@ class SocialMediaCount extends React.Component{
             </div>
           </div>
         </a>
+
         <a
           href={'https://twitch.tv/'+twitchName}
           target="_blank"
@@ -67,6 +72,26 @@ class SocialMediaCount extends React.Component{
             </div>
           </div>
         </a>
+
+        <a
+          href={'https://instagram.com/'+instagramName}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="twitter_object__action"
+        >
+          <div
+            className="social_count__container"
+            onMouseEnter={()=>this.toggleSmile(true)}
+            onMouseLeave={()=>this.toggleSmile(false)}
+          >
+            <div className="social_count_twitter">
+              <FontAwesome name="instagram"/>
+            </div>
+            <div className="social_count__text">
+              {instagramFollowerCount}
+            </div>
+          </div>
+        </a>
       </div>
     );
   }
@@ -76,6 +101,7 @@ export default connect(
   (state) => ({
     twitterFollowerCount: selectTwitterFollowerCountThousands(state),
     twitchFollowerCount: selectTwitchFollowerCountThousands(state),
+    instagramFollowerCount: selectInstagramFollowerCountThousands(state),
   }),
   dispatch => ({
     lionActions: bindActionCreators(lionActions, dispatch),

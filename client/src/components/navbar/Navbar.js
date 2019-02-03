@@ -97,7 +97,10 @@ class Navbar extends React.Component{
 
 
         <div className="navbar__socials">
-          <div className="navbar_option__container">
+          <div
+            className="navbar_option__container"
+            onMouseEnter={()=>this.toggleSmile(true)}
+            onMouseLeave={()=>this.toggleSmile(false)}>
             <a
               href={'https://twitter.com/'+twitterName}
               target='_blank'
@@ -112,7 +115,10 @@ class Navbar extends React.Component{
             </a>
           </div>
 
-          <div className="navbar_option__container">
+          <div
+            className="navbar_option__container"
+            onMouseEnter={()=>this.toggleSmile(true)}
+            onMouseLeave={()=>this.toggleSmile(false)}>
             <a
               href={'https://instagram.com/'+instagramName}
               target='_blank'
@@ -123,6 +129,24 @@ class Navbar extends React.Component{
               </div>
               <div className="navbar_option__overlay">
                 Instagram
+              </div>
+            </a>
+          </div>
+
+          <div
+            className="navbar_option__container"
+            onMouseEnter={()=>this.toggleSmile(true)}
+            onMouseLeave={()=>this.toggleSmile(false)}>
+            <a
+              href={'https://twitch.tv/'+twitchName}
+              target='_blank'
+              rel='noopener noreferrer'
+            >
+              <div className="navbar_option">
+                <FontAwesome name="twitch"/>
+              </div>
+              <div className="navbar_option__overlay">
+                Twitch
               </div>
             </a>
           </div>

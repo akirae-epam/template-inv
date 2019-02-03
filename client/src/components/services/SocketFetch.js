@@ -4,6 +4,7 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import * as twitchActions from 'actions/twitch';
 import * as twitterActions from 'actions/twitter';
+import * as instagramActions from 'actions/instagram';
 
 class SocketFetch extends React.Component {
   constructor() {
@@ -24,6 +25,7 @@ class SocketFetch extends React.Component {
         this.props.twitterActions.fetchTwitterFollowerCount(res.twitterFollowers);
         this.props.twitchActions.fetchTwitchVods(res.twitchVodData);
         this.props.twitchActions.fetchTwitchFollowerCount(res.twitchFollowers);
+        this.props.instagramActions.fetchInstagramFollowerCount(res.instagramFollowers);
       }
     }.bind(this));
 
@@ -40,5 +42,6 @@ export default connect(
   dispatch => ({
     twitchActions: bindActionCreators(twitchActions, dispatch),
     twitterActions: bindActionCreators(twitterActions, dispatch),
+    instagramActions: bindActionCreators(instagramActions, dispatch),
   }),
 )(SocketFetch);

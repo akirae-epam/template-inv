@@ -3,6 +3,7 @@ import lion from 'reducers/lion';
 import twitter from 'reducers/twitter';
 import transition from 'reducers/transition';
 import stream from 'reducers/stream';
+import instagram from 'reducers/instagram';
 
 import {createSelector} from 'reselect';
 
@@ -12,6 +13,7 @@ const reducers={
   twitter,
   transition,
   stream,
+  instagram,
 };
 
 export default reducers;
@@ -60,6 +62,18 @@ export const selectTwitterImageExists = createSelector(
     false
 );
 
+/*======================================
+=               TWITTER                =
+======================================*/
+export const selectInstagramFollowerCount = (state) => state.instagram.followerCount;
+
+export const selectInstagramFollowerCountThousands = createSelector(
+  selectInstagramFollowerCount,
+  (followerCount) => followerCount ?
+    Math.round((parseInt(followerCount)/1000) *10)/10 + 'k'
+    :
+    0
+);
 /*======================================
 =              TRANSITION              =
 ======================================*/
