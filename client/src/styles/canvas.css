@@ -21,14 +21,13 @@
   position: fixed;
   right: 80px;
   bottom: 20px;
-  background-color: rgba(182,103,157,1);
   padding: 20px 40px;
-  color: #fff;
+  color: rgba(182,103,157,1);
   transition: .2s ease-out;
-  font-size: 36px;
+  font-size: 6vw;
 }
 .text_block:hover {
-  background-color: rgba(158,76,132,1);
+  color: rgba(158,76,132,1);
 }
 
 @media screen and (max-width: 768px){
