@@ -6,26 +6,27 @@ import * as twitchActions from 'actions/twitch';
 import * as twitterActions from 'actions/twitter';
 
 class SocketFetch extends React.Component {
-  constructor(props){
-    super(props);
-    this.socket = io();
-  };
+  constructor() {
+    super();
+    this.state = {
+      response: false,
+    };
+  }
+
   componentDidMount() {
+    const { endpoint } = this.state;
+    const socket = io(endpoint);
 
-    this.socket.on('twitchLive', function(res){
-      this.props.twitchActions.setLive({
-        username: res.username,
-        isLive: res.isLive,
-      });
+    socket.on('socialMediaData', function(res){
+      if (res) {
+        this.props.twitchActions.setLive(res.isLive);
+        this.props.twitterActions.fetchTwitter(res.twitterData);
+        this.props.twitterActions.fetchTwitterFollowerCount(res.twitterFollowers);
+        this.props.twitchActions.fetchTwitchVods(res.twitchVodData);
+        this.props.twitchActions.fetchTwitchFollowerCount(res.twitchFollowers);
+      }
     }.bind(this));
 
-    this.socket.on('twitterData', function(res){
-      this.props.twitterActions.fetchTwitter(res.data);
-    }.bind(this));
-
-    this.socket.on('twitchVods', function(res){
-      this.props.twitchActions.fetchTwitchVods(res.data);
-    }.bind(this));
   }
 
   render() {

@@ -2,12 +2,14 @@ import {
   SET_LIVE,
   FETCH_TWITCH_VODS,
   SET_TWITCH_VOD,
+  FETCH_TWITCH_FOLLOWER_COUNT,
 } from 'actions/twitch';
 
 const DEFAULT_STATE={
   liveValues: {},
   twitchVodValues: [],
   currentVod: '',
+  followerCount: 0,
 };
 
 export default(state=DEFAULT_STATE, payload)=>
@@ -27,6 +29,11 @@ export default(state=DEFAULT_STATE, payload)=>
     return state = {
       ...state,
       currentVod: payload.payload
+    };
+  case FETCH_TWITCH_FOLLOWER_COUNT:
+    return state = {
+      ...state,
+      followerCount: payload.payload
     };
   default:
     return state;

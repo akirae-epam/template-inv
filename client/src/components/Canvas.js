@@ -5,6 +5,7 @@ import {bindActionCreators} from 'redux';
 import * as lionActions from 'actions/lion';
 import {Link} from 'react-router-dom';
 import {siteRoutes} from 'data/siteRoutes';
+import SocialMediaCount from 'components/SocialMediaCount';
 
 var OrbitControls = require('three-orbit-controls')(THREE);
 
@@ -76,7 +77,7 @@ class ThreeContainer extends Component {
     const renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setPixelRatio( window.devicePixelRatio );
     renderer.setSize(width, height);
-    renderer.shadowMapEnabled = true;
+    renderer.shadowMap.enabled = true;
 
 
     const controls = new OrbitControls(camera, renderer.domElement);
@@ -108,34 +109,27 @@ class ThreeContainer extends Component {
     scene.add(shadowLight);
     scene.add(spotLight);
 
-    //floor
-    const floor = new THREE.Mesh(new THREE.PlaneBufferGeometry(1000,500), new THREE.MeshBasicMaterial({color: 0xebe5e7}));
-    floor.rotation.x = -Math.PI/2;
-    floor.position.y = -100;
-    floor.receiveShadow = true;
-    scene.add(floor);
-
     //lion
     let lion = new THREE.Object3D();
 
     //geoms
     var bodyGeom = new THREE.CylinderGeometry(30,80, 140, 4);
-    var maneGeom = new THREE.BoxGeometry(40,40,15);
-    var faceGeom = new THREE.BoxGeometry(80,80,80);
-    var spotGeom = new THREE.BoxGeometry(4,4,4);
-    var mustacheGeom = new THREE.BoxGeometry(30,2,1);
+    var maneGeom = new THREE.BoxBufferGeometry(40,40,15);
+    var faceGeom = new THREE.BoxBufferGeometry(80,80,80);
+    var spotGeom = new THREE.BoxBufferGeometry(4,4,4);
+    var mustacheGeom = new THREE.BoxBufferGeometry(30,2,1);
     mustacheGeom.applyMatrix( new THREE.Matrix4().makeTranslation( 15, 0, 0 ) );
 
-    var earGeom = new THREE.BoxGeometry(20,20,20);
-    var noseGeom = new THREE.BoxGeometry(35,35,35);
-    var eyeGeom = new THREE.BoxGeometry(5,30,30);
-    var irisGeom = new THREE.BoxGeometry(4,10,10);
-    var mouthGeom = new THREE.BoxGeometry(20,20,10);
+    var earGeom = new THREE.BoxBufferGeometry(20,20,20);
+    var noseGeom = new THREE.BoxBufferGeometry(35,35,35);
+    var eyeGeom = new THREE.BoxBufferGeometry(5,30,30);
+    var irisGeom = new THREE.BoxBufferGeometry(4,10,10);
+    var mouthGeom = new THREE.BoxBufferGeometry(20,20,10);
     var smileGeom = new THREE.TorusGeometry( 12, 4, 2, 10, Math.PI );
-    var lipsGeom = new THREE.BoxGeometry(40,15,20);
-    var kneeGeom = new THREE.BoxGeometry(25, 80, 80);
+    var lipsGeom = new THREE.BoxBufferGeometry(40,15,20);
+    var kneeGeom = new THREE.BoxBufferGeometry(25, 80, 80);
     kneeGeom.applyMatrix( new THREE.Matrix4().makeTranslation( 0, 50, 0 ) );
-    var footGeom = new THREE.BoxGeometry(40, 20, 20);
+    var footGeom = new THREE.BoxBufferGeometry(40, 20, 20);
 
 
     let yellowMat = new THREE.MeshLambertMaterial ({
@@ -463,6 +457,7 @@ class ThreeContainer extends Component {
     this.mount.appendChild(this.renderer.domElement);
 
     this.start();
+
   }
 
   //game logic
@@ -658,6 +653,7 @@ class ThreeContainer extends Component {
             </div>
           }
         </Link>
+        <SocialMediaCount/>
       </div>
     );
   }

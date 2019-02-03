@@ -25,8 +25,6 @@ consumerSecret = json.consumersecret;
 accessToken = json.accesstoken;
 accessSecret = json.accesssecret;
 
-let twitchVodData = {};
-
 // Serve static files from the React app
 app.use(express.static(path.join(__dirname, 'client/build')));
 
@@ -44,12 +42,21 @@ const port = process.env.PORT || 1506;
 ======================================*/
 const server = http.createServer(app);
 const io = socket(server);
-let isLive = false;
+
+let socialMediaData = {
+  twitterData:{},
+  twitterFollowers: {},
+  twitchVodData: {},
+  twitchFollowers: {},
+  isLive: {},
+};
 
 io.on('connection', (socket) => {
-  socket.emit('twitchLive', {username: TWITCH_USERNAME, isLive: isLive});
-  socket.emit('twitterData', {data: twitterData});
-  socket.emit('twitchVods', {data: twitchVodData});
+  socket.emit('socialMediaData', socialMediaData);
+});
+
+cron.schedule("* * * * *", function() {
+  io.emit('socialMediaData', socialMediaData);
 });
 
 server.listen(port, () => console.log(`Listening on port ${port}`));
@@ -65,62 +72,67 @@ let client = new Twitter({
   access_token_secret: accessSecret
  });
 
-let twitterData = {}
 cron.schedule("* * * * *", function() {
-    client.get('statuses/user_timeline', params, function(error, tweets, response) {
-      if (!error) {
-      const tweethold = Object.keys(tweets).map
-        (function(k){return{key:k, value:tweets[k]}}
-      )
-      //res.json(tweethold);
-      twitterData = tweethold;
-      io.emit('twitterData', {data: twitterData});
-      }
-      else{
-        console.log(error);
-      }
-    });
+  client.get('statuses/user_timeline', params, function(error, tweets, response) {
+    if (!error) {
+    const tweethold = Object.keys(tweets).map
+      (function(k){return{key:k, value:tweets[k]}}
+    )
+    //res.json(tweethold);
+    socialMediaData.twitterData = tweethold;
+    }
+    else{
+      console.log(error);
+    }
+  });
+  client.get('users/show', params, function(error, data, response) {
+    if (!error) {
+      socialMediaData.twitterFollowers = data.followers_count;
+    }
+  });
 });
 /*======================================
 =                TWITCH               =
 ======================================*/
 
 cron.schedule("* * * * *", function() {
-  isLive=true;
+
+  /* twitch is live */
   fetch("https://api.twitch.tv/kraken/streams/"+TWITCH_USERNAME+"?client_id="+twitchKey)
     .then(res => res.json())
     .then(body => {
       if (body.stream){
         if (body.stream.stream_type==="live"){
-          isLive = true;
-          //console.log("true");
-          io.emit('twitchLive', {username: TWITCH_USERNAME, isLive: isLive});
+          socialMediaData.isLive = true;
+
         }
         else {
-          isLive = false;
-          //console.log("false1");
-          io.emit('twitchLive', {username: TWITCH_USERNAME, isLive: isLive});
+          socialMediaData.isLive = false;
         }
       }
       else {
-        isLive = false;
-        //console.log("false2");
-        io.emit('twitchLive', {username: TWITCH_USERNAME, isLive: isLive});
+        socialMediaData.isLive = false;
       }
     }
   );
-});
-/*======================================
-=             TWITCH VODS             =
-======================================*/
+  /* twitch follower count */
+  fetch("https://api.twitch.tv/kraken/channels/"+TWITCH_USERNAME+"?client_id="+twitchKey)
+    .then(res => res.json())
+    .then(body => {
+      if (body.followers){
+        socialMediaData.twitchFollowers = body.followers;
+      }
+      else {
+      }
+    }
+  );
 
-cron.schedule("* * * * *", function() {
+  /* twitch vods */
   fetch("https://api.twitch.tv/kraken/channels/"+TWITCH_USERNAME+"/videos?client_id="+twitchKey+"&broadcasts=true")
     .then(res => res.json())
     .then(body => {
       if (body){
-        twitchVodData = body.videos;
-        io.emit('twitchVods', {data: twitchVodData});
+        socialMediaData.twitchVodData = body.videos;
     }
   }
   );

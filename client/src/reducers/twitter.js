@@ -1,11 +1,13 @@
 import {
   RECEIVE_TWITTER,
   SELECT_TWITTER_IMAGE,
+  FETCH_TWITTER_FOLLOWER_COUNT,
 } from 'actions/twitter';
 
 const DEFAULT_STATE={
   twitterValues: {},
   twitterImage: '',
+  followerCount: 0,
 };
 
 export default(state=DEFAULT_STATE, payload)=>
@@ -20,6 +22,11 @@ export default(state=DEFAULT_STATE, payload)=>
     return state = {
       ...state,
       twitterImage:payload.twitterImage
+    };
+  case FETCH_TWITTER_FOLLOWER_COUNT:
+    return state = {
+      ...state,
+      followerCount:payload.payload
     };
   default:
     return state;
