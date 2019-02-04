@@ -17,19 +17,21 @@ let consumerKey;
 let consumerSecret;
 let accessToken;
 let accessSecret;
+let YOUTUBE_ID;
+let googleKey;
 
 let json = require('./config.json');
 twitchKey = json.twitchKey;
 TWITCH_USERNAME = json.twitchName;
 TWITTER_USERNAME = json.twitterName;
 INSTAGRAM_USERNAME = json.instagramName;
+YOUTUBE_ID = json.youtubeId;
+
+googleKey = json.googleKey;
 consumerKey= json.consumerkey;
 consumerSecret = json.consumersecret;
 accessToken = json.accesstoken;
 accessSecret = json.accesssecret;
-instagramId = json.instagramId;
-instagramSecret = json.instagramSecret;
-instagramToken = json.instagramToken;
 
 // Serve static files from the React app
 app.use(express.static(path.join(__dirname, 'client/build')));
@@ -50,11 +52,12 @@ const io = socket(server);
 
 let socialMediaData = {
   twitterData:{},
-  twitterFollowers: {},
+  twitterFollowers: 0,
   twitchVodData: {},
-  twitchFollowers: {},
+  twitchFollowers: 0,
   isLive: {},
-  instagramFollowers: {},
+  instagramFollowers: 0,
+  youtubeFollowers: 0,
 };
 
 io.on('connection', (socket) => {
@@ -147,12 +150,27 @@ cron.schedule("* * * * *", function() {
 /*======================================
 =                INSTAGRAM               =
 ======================================*/
-
 cron.schedule("* * * * *", function() {
   request({uri: "https://www.instagram.com/"+INSTAGRAM_USERNAME},
     function(error, response, body) {
       if(body.indexOf(("meta property=\"og:description\" content=\"")) != -1){
-        socialMediaData.instagramFollowers = body.split("meta property=\"og:description\" content=\"")[1].split("Followers")[0].replace(/,/g,'');
+        socialMediaData.instagramFollowers = body.split("meta property=\"og:description\" content=\"")[1].split("Followers")[0];
       }
   });
+});
+
+/*======================================
+=                YOUTUBE               =
+======================================*/
+cron.schedule("* * * * *", function() {
+  fetch("https://www.googleapis.com/youtube/v3/channels?part=statistics&id="+YOUTUBE_ID+"&key="+googleKey)
+    .then(res => res.json())
+    .then(body => {
+      if (body){
+        if (body.items && body.items[0] && body.items[0].statistics) {
+          socialMediaData.youtubeFollowers = body.items[0].statistics.subscriberCount;
+        }
+    }
+  }
+  );
 });

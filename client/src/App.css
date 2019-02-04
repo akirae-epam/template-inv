@@ -37,12 +37,19 @@ body {
 .title_title:hover:after{
 	width: 100%;
 }
-
 .title_body {
   font-size: 1.2vw;
   width: 33vw;
 }
 
+@media screen and (max-width: 1240px) {
+  .title {
+    font-size: 4vw;
+  }
+  .title_body {
+    display: none;
+  }
+}
 @media screen and (max-width: 768px) {
   .title {
     font-size: 14vw;
@@ -50,8 +57,5 @@ body {
     left: 0px;
     text-align: center;
     width: 100%;
-  }
-  .title_body {
-    display: none;
   }
 }

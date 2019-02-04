@@ -7,16 +7,19 @@ import {bindActionCreators} from 'redux';
 import {
   selectTwitterFollowerCountThousands,
   selectTwitchFollowerCountThousands,
-  selectInstagramFollowerCountThousands,
+  selectInstagramFollowerCount,
+  selectYoutubeFollowerCount,
 } from 'reducers';
 
 let twitterName = '';
 let twitchName = '';
 let instagramName = '';
+let youtubeName = '';
 let json = require('config.json');
 twitterName = json.twitterName;
 twitchName = json.twitchName;
 instagramName = json.instagramName;
+youtubeName = json.youtubeName;
 
 class SocialMediaCount extends React.Component{
 
@@ -29,6 +32,7 @@ class SocialMediaCount extends React.Component{
       twitterFollowerCount,
       twitchFollowerCount,
       instagramFollowerCount,
+      youtubeFollowerCount,
     } = this.props;
 
     return(
@@ -92,6 +96,26 @@ class SocialMediaCount extends React.Component{
             </div>
           </div>
         </a>
+
+        <a
+          href={'https://youtube.com/channel/'+youtubeName}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="twitter_object__action"
+        >
+          <div
+            className="social_count__container"
+            onMouseEnter={()=>this.toggleSmile(true)}
+            onMouseLeave={()=>this.toggleSmile(false)}
+          >
+            <div className="social_count_twitter">
+              <FontAwesome name="youtube"/>
+            </div>
+            <div className="social_count__text">
+              {youtubeFollowerCount}
+            </div>
+          </div>
+        </a>
       </div>
     );
   }
@@ -101,7 +125,8 @@ export default connect(
   (state) => ({
     twitterFollowerCount: selectTwitterFollowerCountThousands(state),
     twitchFollowerCount: selectTwitchFollowerCountThousands(state),
-    instagramFollowerCount: selectInstagramFollowerCountThousands(state),
+    instagramFollowerCount: selectInstagramFollowerCount(state),
+    youtubeFollowerCount: selectYoutubeFollowerCount(state),
   }),
   dispatch => ({
     lionActions: bindActionCreators(lionActions, dispatch),

@@ -10,11 +10,13 @@ let streamelementsLink = '';
 let twitchName = '';
 let twitterName = '';
 let instagramName = '';
+let youtubeName = '';
 let json = require('config.json');
 twitchName = json.twitchName;
 twitterName = json.twitterName;
 instagramName = json.instagramName;
 streamelementsLink = 'https://streamelements.com/'+json.streamelementsName+'/tip';
+youtubeName = json.youtubeName;
 
 class Navbar extends React.Component{
 
@@ -63,7 +65,9 @@ class Navbar extends React.Component{
               </div>
           ))
           }
+        </div>
 
+        <div className="navbar__socials">
           <div className="navbar_option__container">
             <a
               href={'https://twitch.tv/'+twitchName+'/subscribe'}
@@ -93,10 +97,7 @@ class Navbar extends React.Component{
               </div>
             </a>
           </div>
-        </div>
 
-
-        <div className="navbar__socials">
           <div
             className="navbar_option__container"
             onMouseEnter={()=>this.toggleSmile(true)}
@@ -151,7 +152,25 @@ class Navbar extends React.Component{
             </a>
           </div>
 
+          <div
+            className="navbar_option__container"
+            onMouseEnter={()=>this.toggleSmile(true)}
+            onMouseLeave={()=>this.toggleSmile(false)}>
+            <a
+              href={'https://youtube.com/channel/'+youtubeName}
+              target='_blank'
+              rel='noopener noreferrer'
+            >
+              <div className="navbar_option">
+                <FontAwesome name="youtube"/>
+              </div>
+              <div className="navbar_option__overlay">
+                Youtube
+              </div>
+            </a>
+          </div>
         </div>
+
       </div>
     );
   }

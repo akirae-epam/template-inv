@@ -6,7 +6,7 @@ import {
 } from 'actions/twitch';
 
 const DEFAULT_STATE={
-  liveValues: {},
+  liveValues: false,
   twitchVodValues: [],
   currentVod: '',
   followerCount: 0,

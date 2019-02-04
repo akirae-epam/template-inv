@@ -11,6 +11,7 @@ let twitterLink = '';
 let instagramLink = '';
 let discordLink = '';
 let streamelementsLink = '';
+let youtubeLink = '';
 
 let json = require('config.json');
 twitchLink = 'https://www.twitch.tv/'+json.twitchName;
@@ -18,6 +19,7 @@ twitterLink = 'https://twitter.com/'+json.twitterName;
 instagramLink = 'https://instagram.com/'+json.instagramName;
 discordLink = json.discordLink;
 streamelementsLink = 'https://streamelements.com/'+json.streamelementsName+'/tip';
+youtubeLink = 'https://youtube.com/channel'+json.youtubeName+'/tip';
 
 class LinksContainer extends React.Component{
 
@@ -46,6 +48,7 @@ class LinksContainer extends React.Component{
       {text: 'StreamElements', link: streamelementsLink, icon: 'heart'},
       {text: 'Instagram', link: instagramLink, icon: 'instagram'},
       {text: 'Twitter', link: twitterLink, icon: 'twitter'},
+      {text: 'Youtube', link: youtubeLink, icon: 'youtube'},
     ];
 
     const wrapperName= classNames(

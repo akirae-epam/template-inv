@@ -269,7 +269,7 @@ class ThreeContainer extends Component {
 
     // smile
     let smile = new THREE.Mesh(smileGeom, greyMat);
-    smile.position.z = 173;
+    smile.position.z = 174;
     smile.position.y = -15;
     smile.rotation.z = -Math.PI;
 
@@ -516,8 +516,8 @@ class ThreeContainer extends Component {
     this.tLipsPosY = -45;
 
     this.tSmilePosX = 0;
-    this.tMouthPosZ = 174;
-    this.tSmilePosZ = 173;
+    this.tMouthPosZ = 171;
+    this.tSmilePosZ = 174;
     this.tSmilePosY = -15;
     this.tSmileRotZ = -Math.PI;
 

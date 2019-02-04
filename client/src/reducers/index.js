@@ -4,6 +4,7 @@ import twitter from 'reducers/twitter';
 import transition from 'reducers/transition';
 import stream from 'reducers/stream';
 import instagram from 'reducers/instagram';
+import youtube from 'reducers/youtube';
 
 import {createSelector} from 'reselect';
 
@@ -14,6 +15,7 @@ const reducers={
   transition,
   stream,
   instagram,
+  youtube,
 };
 
 export default reducers;
@@ -63,7 +65,7 @@ export const selectTwitterImageExists = createSelector(
 );
 
 /*======================================
-=               TWITTER                =
+=              INSTAGRAM               =
 ======================================*/
 export const selectInstagramFollowerCount = (state) => state.instagram.followerCount;
 
@@ -74,6 +76,20 @@ export const selectInstagramFollowerCountThousands = createSelector(
     :
     0
 );
+
+/*======================================
+=              YOUTUBE               =
+======================================*/
+export const selectYoutubeFollowerCount = (state) => state.youtube.followerCount;
+
+export const selectYoutubeFollowerCountThousands = createSelector(
+  selectYoutubeFollowerCount,
+  (followerCount) => followerCount ?
+    Math.round((parseInt(followerCount)/1000) *10)/10 + 'k'
+    :
+    0
+);
+
 /*======================================
 =              TRANSITION              =
 ======================================*/
