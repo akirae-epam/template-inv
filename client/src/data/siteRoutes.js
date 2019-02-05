@@ -5,6 +5,7 @@ export const siteRoutes = {
   twitchScreen: '/twitch-screen',
   links: '/links',
   twitchVodSingle: '/twitch-video',
+  schedule: '/schedule',
 
   adminHome: '/shodyra/admin',
   adminSchedule: '/shodyra/admin/schedule',

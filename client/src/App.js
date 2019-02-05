@@ -5,6 +5,7 @@ import {Switch, Route} from 'react-router-dom';
 import PublicRoutesWrapper from 'routes/PublicRoutesWrapper';
 import SocketFetch from 'components/services/SocketFetch';
 import SiteIcon from 'components/services/SiteIcon';
+import GetSchedule from 'components/services/GetSchedule';
 
 import CheckLogin from 'routes/CheckLogin';
 
@@ -22,6 +23,7 @@ class App extends Component {
     return (
       <div className="App">
         <SiteIcon/>
+        <GetSchedule/>
         <SocketFetch/>
         <Switch>
           <Route path="/shodyra/admin" render={(props) => <CheckLogin {...props}/>}/>

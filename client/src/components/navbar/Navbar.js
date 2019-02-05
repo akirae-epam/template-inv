@@ -32,6 +32,7 @@ class Navbar extends React.Component{
 
     const navbarArray = [
       {text: 'Home', route: siteRoutes.home, icon: 'home'},
+      {text: 'Schedule', route: siteRoutes.schedule, icon: 'calendar'},
       {text: 'Twitter Feed', route: siteRoutes.twitter, icon: 'twitter'},
       {text: 'Twitch Vods', route: siteRoutes.twitchVods, icon: 'folder'},
       {text: 'Links and Social Media', route: siteRoutes.links, icon: 'external-link'},

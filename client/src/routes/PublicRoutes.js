@@ -10,6 +10,7 @@ import LinksContainer from 'components/links/LinksContainer';
 import Navbar from 'components/navbar/Navbar';
 import BigScreenContainer from 'components/bigscreen/BigScreenContainer';
 import TwitchVodContainer from 'components/bigscreen/TwitchVodContainer';
+import ScheduleContainer from 'components/schedule/ScheduleContainer';
 
 import TwitterImage from 'components/twitter/TwitterImage';
 import GetTwitchVod from 'components/services/GetTwitchVod';
@@ -34,10 +35,11 @@ class PublicRoutes extends Component {
         {loadedContent[siteRoutes.twitchScreen]?
           <BigScreenContainer />:null}
 
+        {loadedContent[siteRoutes.schedule]?
+          <ScheduleContainer />:null}
+
         {currentPage && currentPage.substring(0, siteRoutes.twitchVodSingle.length) === siteRoutes.twitchVodSingle ?
           <TwitchVodContainer />:null}
-
-        <Navbar/>
 
         {loadedContent[siteRoutes.twitter]?
           <TwitterImage />:null}
@@ -48,6 +50,8 @@ class PublicRoutes extends Component {
               <GetTwitchVod {...props} key={props.match.params.id}/>
             )}/>
         </Switch>
+
+        <Navbar/>
       </div>
     );
   }

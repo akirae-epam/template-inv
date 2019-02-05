@@ -8,7 +8,6 @@ import {siteRoutes} from 'data/siteRoutes';
 
 import Admin from 'admin/pages/AdminHome';
 import ScheduleAdd from 'admin/pages/ScheduleAdd';
-import GetSchedule from 'components/services/GetSchedule';
 import ScheduleEdit from 'admin/pages/ScheduleEdit';
 import ScheduleView from 'admin/pages/ScheduleView';
 
@@ -24,7 +23,6 @@ class RoutesAdmin extends Component {
   render() {
     return (
       <div className="admin_panel" id="admin_panel">
-        <GetSchedule/>
         <div className="admin_nav__left">
           <AdminMenu/>
         </div>
