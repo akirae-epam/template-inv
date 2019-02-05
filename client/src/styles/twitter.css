@@ -34,7 +34,7 @@
   color: #432b6e;
 }
 .twitter_object__image {
-  max-width: 100%;
+  width: 100%;
   margin: 14px 0px;
   cursor: pointer;
 }

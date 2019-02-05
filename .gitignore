@@ -2,6 +2,9 @@ config.json
 package-lock.json
 node_modules
 
+client/src/fire.js
+client/src/config.json
+
 client/config.json
 client/package-lock.json
 

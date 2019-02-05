@@ -5,10 +5,14 @@ import transition from 'reducers/transition';
 import stream from 'reducers/stream';
 import instagram from 'reducers/instagram';
 import youtube from 'reducers/youtube';
+import authentication from 'reducers/authentication';
+import schedule from 'reducers/schedule';
+import { reducer as reducerForm } from 'redux-form';
 
 import {createSelector} from 'reselect';
 
 const reducers={
+  form: reducerForm,
   twitch,
   lion,
   twitter,
@@ -16,6 +20,8 @@ const reducers={
   stream,
   instagram,
   youtube,
+  authentication,
+  schedule,
 };
 
 export default reducers;

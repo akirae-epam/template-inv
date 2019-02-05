@@ -5,7 +5,12 @@ body {
   width: 100vw;
   overflow: hidden;
 }
-
+:root {
+  --white-color: #fff;
+  --grey-light-color: #ddd;
+  --admin-container-color: rgba(0, 0, 0, .9);
+  --black-color: #000;
+}
 .title {
   position: absolute;
   top: 36px;

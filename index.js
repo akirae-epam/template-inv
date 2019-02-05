@@ -9,6 +9,10 @@ const path = require('path');
 const app = express();
 const http = require("http");
 
+const cors = require('cors');
+const bodyParser = require('body-parser');
+const NodeCouchDb = require('node-couchdb');
+
 let twitchKey;
 let TWITCH_USERNAME;
 let TWITTER_USERNAME;
@@ -32,6 +36,119 @@ consumerKey= json.consumerkey;
 consumerSecret = json.consumersecret;
 accessToken = json.accesstoken;
 accessSecret = json.accesssecret;
+
+/*DATABASE*/
+app.use(cors());
+let couchUsername;
+let couchPassword;
+let couchViewUrl;
+let dbName;
+
+couchUsername = json.couchUsername;
+couchPassword = json.couchPassword;
+dbName = json.dbName;
+couchViewUrl = json.couchViewUrl;
+app.use( bodyParser.json() );       // to support JSON-encoded bodies
+var urlencodedParser = bodyParser.urlencoded({extended: false});
+
+
+/*======================================
+=              SCHEDULE               =
+======================================*/
+
+const couch = new NodeCouchDb({
+  auth: {
+    user: couchUsername,
+    password: couchPassword,
+  }
+});
+
+app.get('/schedule/view', (req, res) => {
+
+  couch.get(dbName, couchViewUrl).then(
+     function(data) {
+       res.send(data.data.rows);
+     },
+     function(err) {
+       res.send(err);
+     }
+   )
+ });
+app.post('/schedule/post', urlencodedParser, (req, res) => {
+  couch.uniqid().then(function(ids){
+    const id = ids[0];
+    couch.insert(dbName, {
+      _id: id,
+
+      monTime: req.body.monTime,
+      monDescription: req.body.monDescription,
+      tuesTime: req.body.tuesTime,
+      tuesDescription: req.body.tuesDescription,
+      wedTime: req.body.wedTime,
+      wedDescription: req.body.wedDescription,
+      thursTime: req.body.thursTime,
+      thursDescription: req.body.thursDescription,
+      friTime: req.body.friTime,
+      friDescription: req.body.friDescription,
+      satTime: req.body.satTime,
+      satDescription: req.body.satDescription,
+      sunTime: req.body.sunTime,
+      sunDescription: req.body.sunDescription,
+
+      created_at: Date.now(),
+      updated_at: Date.now(),
+    }).then(
+      function(data, headers, status) {
+        res.send(data);
+      },
+      function(error) {
+        res.send(error);
+      }
+    )
+  })
+});
+app.post('/schedule/delete', urlencodedParser, (req, res) => {
+  const id = req.body.id;
+  const rev = req.body.rev;
+  couch.del(dbName, id, rev). then(
+    function(data, headers, status) {
+      res.send(data);
+    },
+    function(err) {
+      res.send(err);
+    });
+});
+app.post('/schedule/put', urlencodedParser, (req, res) => {
+  couch.update(dbName, {
+    _id: req.body.id,
+    _rev: req.body.rev,
+
+    monTime: req.body.monTime,
+    monDescription: req.body.monDescription,
+    tuesTime: req.body.tuesTime,
+    tuesDescription: req.body.tuesDescription,
+    wedTime: req.body.wedTime,
+    wedDescription: req.body.wedDescription,
+    thursTime: req.body.thursTime,
+    thursDescription: req.body.thursDescription,
+    friTime: req.body.friTime,
+    friDescription: req.body.friDescription,
+    satTime: req.body.satTime,
+    satDescription: req.body.satDescription,
+    sunTime: req.body.sunTime,
+    sunDescription: req.body.sunDescription,
+
+    updatedAt: Date.now(),
+  }).then(
+    function(data, headers, status) {
+      res.send(data);
+    },
+    function(error) {
+      res.send(error);
+    }
+  )
+});
+
 
 // Serve static files from the React app
 app.use(express.static(path.join(__dirname, 'client/build')));
@@ -174,3 +291,4 @@ cron.schedule("* * * * *", function() {
   }
   );
 });
+
