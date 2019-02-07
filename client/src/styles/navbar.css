@@ -41,6 +41,7 @@
   top: 52px;
   right: 50px;
   background-color: rgba(189, 160, 165, 1);
+  border: 1px solid rgba(158,76,132,1);
   padding: 14px;
   z-index:999;
   color: #000;
@@ -52,6 +53,16 @@
 .navbar_option__container:hover .navbar_option__overlay {
   opacity: 1;
   transform: translateY(-20px);
+}
+.navbar__icon {
+  height: 24px;
+  width: 24px;
+}
+
+@media screen and (max-height: 588px){
+	.navbar__socials {
+		display: none;
+	}
 }
 @media screen and (max-width: 768px){
   .navbar__wrapper {

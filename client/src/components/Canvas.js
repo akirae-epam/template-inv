@@ -7,6 +7,14 @@ import {Link} from 'react-router-dom';
 import {siteRoutes} from 'data/siteRoutes';
 import SocialMediaCount from 'components/SocialMediaCount';
 
+import {
+  selectTwitchIsLive,
+  selectLionLoaded,
+  selectLionSmiling,
+  selectLionWindowHalfX,
+  selectLionWindowHalfY,
+} from 'reducers';
+
 var OrbitControls = require('three-orbit-controls')(THREE);
 
 /* Original from here: https://codepen.io/Yakudoo/pen/YXxmYR */
@@ -619,8 +627,7 @@ class ThreeContainer extends Component {
   render () {
 
     const {
-      liveValues,
-      isLive = liveValues.isLive,
+      isLive,
     } = this.props;
 
     return (
@@ -656,12 +663,12 @@ class ThreeContainer extends Component {
 }
 
 export default connect(
-  (state, ownProps) => ({
-    lionLoaded: state.lion.lionLoaded,
-    liveValues: state.twitch.liveValues,
-    isSmiling: state.lion.isSmiling,
-    windowHalfX: state.lion.windowHalfX,
-    windowHalfY: state.lion.windowHalfY,
+  (state) => ({
+    isLive: selectTwitchIsLive(state),
+    lionLoaded: selectLionLoaded(state),
+    isSmiling: selectLionSmiling(state),
+    windowHalfX: selectLionWindowHalfX(state),
+    windowHalfY: selectLionWindowHalfY(state),
   }),
   dispatch => ({
     lionActions: bindActionCreators(lionActions, dispatch),

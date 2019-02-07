@@ -10,6 +10,8 @@ body {
   --grey-light-color: #ddd;
   --admin-container-color: rgba(0, 0, 0, .9);
   --black-color: #000;
+  --color-panel: rgba(189, 160, 165, 1);
+  --color-panel-text: #000;
 }
 .title {
   position: absolute;
@@ -46,7 +48,11 @@ body {
   font-size: 1.2vw;
   width: 33vw;
 }
-
+@media screen and (max-height: 588px){
+	.title_body {
+		display: none;
+	}
+}
 @media screen and (max-width: 1240px) {
   .title {
     font-size: 4vw;
@@ -79,4 +85,39 @@ body {
 }
 .schedule__container {
   margin-bottom: 22px;
+}
+
+
+
+#twitter__wrapper,
+#twitch__wrapper,
+#links__wrapper,
+#schedule_wrapper {
+  height: 100vh;
+  overflow: auto;
+  padding-top: 60px;
+  box-sizing: border-box;
+}
+.panel_toggle {
+  position: absolute;
+  top: 10px;
+  left : 7px;
+  z-index: 2;
+  cursor: pointer;
+  font-size: 16px;
+  color: var(--color-link);
+  transition: .2s ease-out;
+}
+.panel_toggle:hover {
+  color: var(--color-link-hover);
+}
+.panel_toggle--left {
+  left: auto;
+  right: 12px;
+}
+
+@media screen and (max-width: 768px){
+  .panel_toggle {
+    display: none;
+  }
 }

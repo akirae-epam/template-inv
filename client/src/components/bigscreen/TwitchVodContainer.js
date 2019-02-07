@@ -5,6 +5,13 @@ import {bindActionCreators} from 'redux';
 import * as streamActions from 'actions/stream';
 import FontAwesome from 'react-fontawesome';
 
+import {
+  selectTransitionStatus,
+  selectStreamChatPosition,
+  selectStreamChatSize,
+  selectTwitchCurrentVod,
+} from 'reducers';
+
 let json = require('config.json');
 const twitchName = json.twitchName;
 
@@ -88,11 +95,11 @@ class BigScreenContainer extends React.Component{
 }
 
 export default connect(
-  (state, ownProps) => ({
-    transitionStatus: state.transition.transitionStatus,
-    chatPosition: state.stream.chatPosition,
-    chatSize: state.stream.chatSize,
-    currentVod: state.twitch.currentVod,
+  (state) => ({
+    transitionStatus: selectTransitionStatus(state),
+    chatPosition: selectStreamChatPosition(state),
+    chatSize: selectStreamChatSize(state),
+    currentVod: selectTwitchCurrentVod(state),
   }),
   dispatch => ({
     streamActions: bindActionCreators(streamActions, dispatch),

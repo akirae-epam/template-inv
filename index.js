@@ -270,8 +270,10 @@ cron.schedule("* * * * *", function() {
 cron.schedule("* * * * *", function() {
   request({uri: "https://www.instagram.com/"+INSTAGRAM_USERNAME},
     function(error, response, body) {
-      if(body.indexOf(("meta property=\"og:description\" content=\"")) != -1){
-        socialMediaData.instagramFollowers = body.split("meta property=\"og:description\" content=\"")[1].split("Followers")[0];
+      if(body){
+        if (body.indexOf(("meta property=\"og:description\" content=\"")) != -1){
+          socialMediaData.instagramFollowers = body.split("meta property=\"og:description\" content=\"")[1].split("Followers")[0];
+        }
       }
   });
 });

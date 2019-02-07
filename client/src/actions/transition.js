@@ -3,6 +3,8 @@ export const LOAD_CONTENT = Symbol('LOAD_CONTENT');
 export const PREVIOUS_PAGE_NAME = Symbol('PREVIOUS_PAGE_NAME');
 export const REMOVE_PREVIOUS_CONTENT = Symbol('REMOVE_PREVIOUS_CONTENT');
 
+export const TOGGLE_PANEL_SIDE = Symbol('TOGGLE_PANEL_SIDE');
+
 export const startTransition = (transitionStatus) => {
   return{
     type: START_TRANSITION,
@@ -26,6 +28,13 @@ export const removePreviousContent = (newList) => {
   return{
     type: REMOVE_PREVIOUS_CONTENT,
     newList,
+  };
+};
+
+export const togglePanelSide = (payload) => {
+  return{
+    type: TOGGLE_PANEL_SIDE,
+    payload,
   };
 };
 

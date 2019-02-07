@@ -3,12 +3,14 @@ import {
   LOAD_CONTENT,
   PREVIOUS_PAGE_NAME,
   REMOVE_PREVIOUS_CONTENT,
+  TOGGLE_PANEL_SIDE,
 } from 'actions/transition';
 
 const DEFAULT_STATE={
   transitionStatus: null,
   loadedContent: {},
   previousPage: '',
+  panelSide: true,
 };
 
 export default(state=DEFAULT_STATE, payload)=>
@@ -37,6 +39,11 @@ export default(state=DEFAULT_STATE, payload)=>
     return {
       ...state,
       loadedContent: payload.newList,
+    };
+  case TOGGLE_PANEL_SIDE:
+    return {
+      ...state,
+      panelSide: payload.payload,
     };
   default:
     return state;

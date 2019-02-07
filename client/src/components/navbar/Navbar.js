@@ -5,18 +5,25 @@ import {siteRoutes} from 'data/siteRoutes';
 import FontAwesome from 'react-fontawesome';
 import {bindActionCreators} from 'redux';
 import * as lionActions from 'actions/lion';
+import discordImage from 'media/discord.svg';
+
+import {
+  selectLoadedContent,
+} from 'reducers';
 
 let streamelementsLink = '';
 let twitchName = '';
 let twitterName = '';
 let instagramName = '';
 let youtubeName = '';
+let discordLink = '';
 let json = require('config.json');
 twitchName = json.twitchName;
 twitterName = json.twitterName;
 instagramName = json.instagramName;
 streamelementsLink = 'https://streamelements.com/'+json.streamelementsName+'/tip';
 youtubeName = json.youtubeName;
+discordLink = json.discordLink;
 
 class Navbar extends React.Component{
 
@@ -170,8 +177,25 @@ class Navbar extends React.Component{
               </div>
             </a>
           </div>
-        </div>
 
+          <div
+            className="navbar_option__container"
+            onMouseEnter={()=>this.toggleSmile(true)}
+            onMouseLeave={()=>this.toggleSmile(false)}>
+            <a
+              href={discordLink}
+              target='_blank'
+              rel='noopener noreferrer'
+            >
+              <div className="navbar_option">
+                <img src={discordImage} alt="discord" className="navbar__icon"/>
+              </div>
+              <div className="navbar_option__overlay">
+                Discord
+              </div>
+            </a>
+          </div>
+        </div>
       </div>
     );
   }
@@ -179,7 +203,7 @@ class Navbar extends React.Component{
 
 export default connect(
   (state) => ({
-    loadedContent: state.transition.loadedContent,
+    loadedContent: selectLoadedContent(state),
   }),
   dispatch => ({
     lionActions: bindActionCreators(lionActions, dispatch),

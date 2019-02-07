@@ -37,6 +37,14 @@ export const selectTwitchLiveValues = (state) => state.twitch.liveValues;
 
 export const selectTwitchFollowerCount = (state) => state.twitch.followerCount;
 
+export const selectTwitchIsLive = createSelector(
+  selectTwitchLiveValues,
+  (twitchLive) => twitchLive === true ?
+    true
+    :
+    false
+);
+
 export const selectTwitchFollowerCountThousands = createSelector(
   selectTwitchFollowerCount,
   (followerCount) => followerCount ?
@@ -111,6 +119,8 @@ export const selectCurrentPage = createSelector(
     ''
 );
 
+export const selectPanelSide = (state) => state.transition.panelSide;
+
 /*======================================
 =                STREAM                =
 ======================================*/
@@ -118,3 +128,18 @@ export const selectStreamChatPosition = (state) => state.stream.chatPosition;
 
 export const selectStreamChatSize = (state) => state.stream.chatSize;
 
+/*======================================
+=                LION                 =
+======================================*/
+export const selectLionLoaded = (state) => state.lion.lionLoaded;
+
+export const selectLionSmiling = (state) => state.lion.isSmiling;
+
+export const selectLionWindowHalfX = (state) => state.lion.windowHalfX;
+
+export const selectLionWindowHalfY = (state) => state.lion.windowHalfY;
+
+/*======================================
+=              SCHEDULE               =
+======================================*/
+export const selectSchedules = (state) => state.schedule.schedules;

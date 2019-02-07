@@ -102,16 +102,12 @@
   }
 }
 
-
 .stream_navbar {
   height: 40px;
   top: -40px;
   width: 100vw;
   position: absolute;
   background-color: #111;
-  -webkit-transition: .2s ease-out;
-  -moz-transition: .2s ease-out;
-  -o-transition: .2s ease-out;
   transition:.2s ease-out;
   color: #fff;
   display: flex;
@@ -125,9 +121,6 @@
   transform: translateY(40px);
 }
 .stream_navbar a {
-  -webkit-transition: .2s ease-out;
-  -moz-transition: .2s ease-out;
-  -o-transition: .2s ease-out;
   transition:.2s ease-out;
   text-decoration: none;
   color: #fff;

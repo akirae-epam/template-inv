@@ -195,8 +195,6 @@ class ScheduleEditForm extends React.Component {
 
 function mapStateToProps(state, props){
   const scheduleData = _.find(state.schedule.schedules, {'id': props.id});
-  console.log(scheduleData);
-  console.log('77777777777777777777777777');
   const scheduleDoc = scheduleData ? scheduleData.doc : null;
   return{
     testValue: scheduleData,

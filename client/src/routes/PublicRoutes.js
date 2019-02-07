@@ -10,10 +10,15 @@ import LinksContainer from 'components/links/LinksContainer';
 import Navbar from 'components/navbar/Navbar';
 import BigScreenContainer from 'components/bigscreen/BigScreenContainer';
 import TwitchVodContainer from 'components/bigscreen/TwitchVodContainer';
-import ScheduleContainer from 'components/schedule/ScheduleContainer';
+import ScheduleWrapper from 'components/schedule/ScheduleWrapper';
 
 import TwitterImage from 'components/twitter/TwitterImage';
 import GetTwitchVod from 'components/services/GetTwitchVod';
+
+import {
+  selectLoadedContent,
+  selectCurrentPage,
+} from 'reducers';
 
 class PublicRoutes extends Component {
 
@@ -36,7 +41,7 @@ class PublicRoutes extends Component {
           <BigScreenContainer />:null}
 
         {loadedContent[siteRoutes.schedule]?
-          <ScheduleContainer />:null}
+          <ScheduleWrapper />:null}
 
         {currentPage && currentPage.substring(0, siteRoutes.twitchVodSingle.length) === siteRoutes.twitchVodSingle ?
           <TwitchVodContainer />:null}
@@ -58,17 +63,10 @@ class PublicRoutes extends Component {
 }
 
 export default connect(
-  (state) => {
-    const loadedContent = state.transition.loadedContent;
-
-    let currentPage;
-    currentPage = Object.keys(loadedContent).find(key => loadedContent[key] === true);
-
-    return {
-      currentPage,
-      loadedContent,
-    };
-  },
+  (state) => ({
+    loadedContent: selectLoadedContent(state),
+    currentPage: selectCurrentPage(state),
+  }),
   dispatch => ({
   }),
 )(PublicRoutes);

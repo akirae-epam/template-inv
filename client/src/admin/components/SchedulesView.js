@@ -4,6 +4,10 @@ import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 import {siteRoutes} from 'data/siteRoutes';
 
+import {
+  selectSchedules,
+} from 'reducers';
+
 const ScheduleList = ({schedules}) => {
   if (schedules.length > 2) {
     schedules.map((value, key) => {
@@ -158,7 +162,7 @@ class DatabaseList extends Component {
 
 export default connect(
   (state) => ({
-    schedules: state.schedule.schedules,
+    schedules: selectSchedules(state),
   }),
   dispatch => ({
   }),
