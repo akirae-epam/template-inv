@@ -1,6 +1,6 @@
 .links_link__wrapper {
   width: 100%;
-  background-color: rgba(182,103,157,1);
+  background-color: var(--color-pink);
   margin: 7px 0px;
   color: #000;
   transition: .2s ease-out;
@@ -17,11 +17,11 @@
   font-size: 16px;
 }
 .links_link__wrapper a {
-  color: #000;
+  color: var(--black-color);
 }
 .links_link__wrapper:hover {
-  background-color: rgba(158,76,132,1);
+  background-color: var(--color-lavender-dark);
 }
 .links_link__wrapper a:hover {
-  color: #000;
+  color: var(--black-color);
 }

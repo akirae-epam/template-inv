@@ -5,16 +5,18 @@
   width: 100vw;
   height: 100vh;
   overflow: hidden;
-  background-color: #fff;
+	background-image: linear-gradient(var(--color-lavender), var(--color-pink));
 }
 .text_block {
   position: fixed;
-  right: 80px;
-  bottom: 20px;
-  padding: 20px 40px;
-  color: rgba(182,103,157,1);
+  right: 100px;
+	bottom: 40px;
+	padding: 0px;
+	color: var(--white-color);
+	text-transform: uppercase;
   transition: .2s ease-out;
-  font-size: 6vw;
+	font-size: 3vw;
+	text-shadow: 2px 2px var(--color-pink-mid);
 }
 .text_block:after{
 	content: "";
@@ -23,7 +25,7 @@
 	top: 42%;
 	width: 0px;
 	height: 36%;
-	background-color: #E59500;
+	background-color: var(--color-lavender);
 	opacity:  .6;
 	z-index: -1;
 	transition:  all .3s ease-in-out;
@@ -61,7 +63,7 @@
 	flex-direction: column;
 	justify-content: center;
 	text-align: center;
-	background-color: rgba(182,103,157,1);
+	background-color: var(--color-lavender);
 	padding: 14px;
 	box-sizing: border-box;
 	transition: .2s ease-out;

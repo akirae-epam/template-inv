@@ -4,7 +4,7 @@
   top: 0px;
   width: 450px;
   height: 100vh;
-  background-color: var(--color-panel);
+  background-color: var(--color-lavender);
   transition: .4s ease-out;
   color: var(--color-panel-text);
   box-sizing: border-box;
@@ -43,10 +43,17 @@
 .twitter_header:hover a {
   color: #432b6e;
 }
+.twitter_object__image_container {
+  margin: 14px 0px;
+  overflow: hidden;
+}
 .twitter_object__image {
   width: 100%;
-  margin: 14px 0px;
   cursor: pointer;
+  transition: .2s ease-out;
+}
+.twitter_object__image:hover {
+  transform: scale(1.05, 1.05);
 }
 .twitter_icon {
   color: #38A1F3;

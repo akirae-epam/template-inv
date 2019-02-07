@@ -65,7 +65,7 @@ class ThreeContainer extends Component {
 
 
     //background
-    scene.background = new THREE.Color( 0xebe5e7 );
+    //scene.background = new THREE.Color( 0xfdd1de );
 
     //camera
     const camera = new THREE.PerspectiveCamera(
@@ -78,7 +78,8 @@ class ThreeContainer extends Component {
     camera.position.y = 0;
     camera.lookAt(new THREE.Vector3(0,0,0));
 
-    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    //alpha true = transparent background
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer.setPixelRatio( window.devicePixelRatio );
     renderer.setSize(width, height);
     renderer.shadowMap.enabled = true;

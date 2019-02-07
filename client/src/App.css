@@ -1,6 +1,6 @@
 body {
   margin :0px;
-  font-family: 'Gochi Hand', Helvetica, sans-serif;
+  font-family: 'Quicksand', Helvetica, sans-serif;
   height: 100vh;
   width: 100vw;
   overflow: hidden;
@@ -12,22 +12,28 @@ body {
   --black-color: #000;
   --color-panel: rgba(189, 160, 165, 1);
   --color-panel-text: #000;
+  --color-lavender: #d9b1e6;
+  --color-lavender-dark: #bd77d3;
+  --color-pink: #fdd1de;
+  --color-pink-mid: #dda5e1;
+  --color-pink-dark: rgba(158,76,132,1);
 }
 .title {
   position: absolute;
   top: 36px;
   left: 36px;
-  font-size: 6vw;
+  font-size: 3vw;
   z-index: 2;
 }
 .title_title {
   position: relative;
   text-decoration: none;
+  text-transform: uppercase;
+  text-shadow: 2px 2px var(--color-pink-mid);
 }
 .title_title a{
   text-decoration: none;
-  color: rgba(182,103,157,1);
-  color: rgba(182,103,157,1);
+  color: var(--white-color);
 }
 .title_title:after{
 	content: "";
@@ -36,7 +42,7 @@ body {
 	top: 42%;
 	width: 0px;
 	height: 36%;
-	background-color: #E59500;
+	background-color: var(--color-pink);
 	opacity:  .6;
 	z-index: -1;
 	transition:  all .3s ease-in-out;
@@ -86,9 +92,9 @@ body {
 .schedule__container {
   margin-bottom: 22px;
 }
-
-
-
+.schedule__container--selected {
+  color: var(--color-pink-dark);
+}
 #twitter__wrapper,
 #twitch__wrapper,
 #links__wrapper,

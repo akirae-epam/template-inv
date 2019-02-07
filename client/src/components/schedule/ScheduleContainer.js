@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import Scrollbar from 'smooth-scrollbar';
 import FontAwesome from 'react-fontawesome';
-import PanelWrapper from 'components/PanelWrapper';
+import ScheduleDay from 'components/schedule/ScheduleDay';
 
 import * as lionActions from 'actions/lion';
 
@@ -32,6 +32,19 @@ class TwitchVodsContainer extends React.Component{
       schedules,
     } = this.props;
 
+    let dt = new Date();
+    let currentDay = dt.getDay();
+
+    const scheduleArray = [
+      {day: 'Monday', time: schedules[0].value.monTime, description: schedules[0].value.monDescription, currentDay: currentDay === 1},
+      {day: 'Tuesday', time: schedules[0].value.tuesTime, description: schedules[0].value.tuesDescription, currentDay: currentDay === 2},
+      {day: 'Wednesday', time: schedules[0].value.wedTime, description: schedules[0].value.wedDescription, currentDay: currentDay === 3},
+      {day: 'Thursday', time: schedules[0].value.thursTime, description: schedules[0].value.thursDescription, currentDay: currentDay === 4},
+      {day: 'Friday', time: schedules[0].value.friTime, description: schedules[0].value.friDescription, currentDay: currentDay === 5},
+      {day: 'Saturday', time: schedules[0].value.satTime, description: schedules[0].value.satDescription, currentDay: currentDay === 6},
+      {day: 'Sunday', time: schedules[0].value.sunTime, description: schedules[0].value.sunDescription, currentDay: currentDay === 0},
+    ];
+
     /* already checked to make sure schedule[0] exists in wrapper */
     return(
       <div id="schedule_wrapper">
@@ -39,70 +52,20 @@ class TwitchVodsContainer extends React.Component{
           <FontAwesome name="calendar"/>
           &nbsp;Schedule
         </div>
-
         <div className="schedule__wrapper">
-          <div className="schedule__container">
-            <div className="misc_title">
-            Monday
-            </div>
-            {schedules[0].value.monTime}
-            <br/>
-            {schedules[0].value.monDescription}
-          </div>
 
-          <div className="schedule__container">
-            <div className="misc_title">
-            Tuesday
-            </div>
-            {schedules[0].value.tuesTime}
-            <br/>
-            {schedules[0].value.tuesDescription}
-          </div>
+          {scheduleArray.map((value, key) => {
+            return (
+              <ScheduleDay
+                key={key}
+                day={value.day}
+                time={value.time}
+                description={value.description}
+                currentDay = {value.currentDay}
+              />
+            );
+          })}
 
-          <div className="schedule__container">
-            <div className="misc_title">
-            Wednesday
-            </div>
-            {schedules[0].value.wedTime}
-            <br/>
-            {schedules[0].value.wedDescription}
-          </div>
-
-          <div className="schedule__container">
-            <div className="misc_title">
-            Thursday
-            </div>
-            {schedules[0].value.thursTime}
-            <br/>
-            {schedules[0].value.thursDescription}
-          </div>
-
-          <div className="schedule__container">
-            <div className="misc_title">
-            Friday
-            </div>
-            {schedules[0].value.friTime}
-            <br/>
-            {schedules[0].value.friDescription}
-          </div>
-
-          <div className="schedule__container">
-            <div className="misc_title">
-            Saturday
-            </div>
-            {schedules[0].value.satTime}
-            <br/>
-            {schedules[0].value.satDescription}
-          </div>
-
-          <div className="schedule__container">
-            <div className="misc_title">
-            Sunday
-            </div>
-            {schedules[0].value.sunTime}
-            <br/>
-            {schedules[0].value.sunDescription}
-          </div>
         </div>
       </div>
     );

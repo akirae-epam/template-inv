@@ -1,7 +1,7 @@
 .navbar__wrapper {
   width: 60px;
   height: 100vh;
-  background-color: rgba(182,103,157,1);
+  background-color: var(--color-lavender);
   position: fixed;
   right: 0px;
   top: 0px;
@@ -16,14 +16,14 @@
 }
 .navbar__wrapper a {
   text-decoration: none;
-  color: #fff;
+  color: var(--white-color);
   -webkit-transition: .3s ease-out;
   -moz-transition: .3s ease-out;
   -o-transition: .3s ease-out;
   transition: .3s ease-out;
 }
 .navbar__wrapper a:hover {
-  color: rgba(158,76,132,1);
+  color: var(--color-pink);
 }
 .navbar_option {
   width: 100%;
@@ -40,8 +40,8 @@
   position: absolute;
   top: 52px;
   right: 50px;
-  background-color: rgba(189, 160, 165, 1);
-  border: 1px solid rgba(158,76,132,1);
+  background-color: var(--color-lavender);
+  border: 1px solid var(--color-lavender-dark);
   padding: 14px;
   z-index:999;
   color: #000;
