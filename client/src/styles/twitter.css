@@ -41,7 +41,7 @@
 }
 .twitter__container a:hover,
 .twitter_header:hover a {
-  color: #432b6e;
+  color: var(--color-pink);
 }
 .twitter_object__image_container {
   margin: 14px 0px;
@@ -109,6 +109,10 @@
   .twitter__wrapper--right.twitter__wrapper--hidden {
     transform: translateX(-100vw);
   }
+  .twitter__container,
+  .schedule__wrapper {
+    padding-bottom: 200px;
+  }
 }
 .twitter_time {
   font-size: 14px;
@@ -144,7 +148,14 @@
   color: #fff;
   position: fixed;
   top: 20px;
-  right: 20px;
+  right: 90px;
   font-size: 36px;
   cursor: pointer;
+}
+
+@media screen and (max-width: 768px) {
+  .twitter_lightbox__close {
+    top: 60px;
+    right: 20px;
+  }
 }

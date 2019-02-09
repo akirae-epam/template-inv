@@ -8,6 +8,18 @@ import {siteRoutes} from 'data/siteRoutes';
 
 class TwitchObject extends React.Component{
 
+  secondsToHms = (seconds) => {
+    seconds = Number(seconds);
+    let h = Math.floor(seconds / 3600);
+    let m = Math.floor(seconds % 3600 / 60);
+    let s = Math.floor(seconds % 3600 % 60);
+
+    let hDisplay = h > 0 ? (h >= 10 ? '' : '0') + h : '00';
+    let mDisplay = m > 0 ?  (m >= 10 ? '' : '0') + m : '00';
+    let sDisplay = s > 0 ? (s >= 10 ? '' : '0') + s : '00';
+    return hDisplay +':'+ mDisplay +':'+ sDisplay;
+  };
+
   toggleSmile = (bool) => {
     this.props.lionActions.setSmile(bool);
   }
@@ -19,6 +31,8 @@ class TwitchObject extends React.Component{
       views,
       preview,
       created_at,
+      length,
+      game,
     } = this.props;
 
     let timeText = moment(created_at).fromNow();
@@ -35,13 +49,27 @@ class TwitchObject extends React.Component{
             />
           </Link>
         </div>
-        <strong>
-          {title}
-        </strong>
-        <br/>
-        {timeText}
-        <br/>
-        {views} views
+        <Link
+          to={siteRoutes.twitchVodSingle + '/' + url.slice(29)}
+          onMouseEnter={()=>this.toggleSmile(true)}
+          onMouseLeave={()=>this.toggleSmile(false)}
+        >
+          <strong>
+            {title}
+          </strong>
+        </Link>
+        <div className="twitch_subtext">
+          <div className="twitch_subtext__half">
+            {timeText}
+            <br/>
+            {views}&nbsp;views
+          </div>
+          <div className="twitch_subtext__half">
+            {this.secondsToHms(length)}
+            <br/>
+            {game}
+          </div>
+        </div>
       </div>
     );
   }

@@ -3,12 +3,9 @@ import * as THREE from 'three';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 import * as lionActions from 'actions/lion';
-import {Link} from 'react-router-dom';
-import {siteRoutes} from 'data/siteRoutes';
 import SocialMediaCount from 'components/SocialMediaCount';
 
 import {
-  selectTwitchIsLive,
   selectLionLoaded,
   selectLionSmiling,
   selectLionWindowHalfX,
@@ -22,6 +19,7 @@ var OrbitControls = require('three-orbit-controls')(THREE);
 class ThreeContainer extends Component {
   constructor(props) {
     super(props);
+
     this.start = this.start.bind(this);
     this.update = this.update.bind(this);
   }
@@ -88,6 +86,7 @@ class ThreeContainer extends Component {
     const controls = new OrbitControls(camera, renderer.domElement);
     controls.update();
 
+    this.setWindowHalfValues();
     window.addEventListener('resize', onWindowResize, false);
     window.addEventListener('resize', this.setWindowHalfValues, false);
 
@@ -613,50 +612,26 @@ class ThreeContainer extends Component {
     this.body.geometry.verticesNeedUpdate = true;
   }
 
-  setSmiling = () => {
-    this.props.lionActions.setSmile(true);
-  }
-  stopSmiling = () => {
-    this.props.lionActions.setSmile(false);
+  toggleSmile = (bool) => {
+    this.props.lionActions.setSmile(bool);
   }
   setWindowHalfValues = () => {
     let width = window.innerWidth;
     let height = window.innerHeight;
     this.props.lionActions.setWindowHalfX(width/2);
     this.props.lionActions.setWindowHalfY(height/2);
+
+
   }
   render () {
-
-    const {
-      isLive,
-    } = this.props;
 
     return (
       <div>
         <div
           className="canvas_container"
           ref={(mount) => { this.mount = mount; }}
-          onMouseEnter={()=>this.stopSmiling()}
+          onMouseEnter={()=>this.toggleSmile(false)}
         />
-        <Link to={siteRoutes.twitchScreen}>
-          {isLive ?
-            <div
-              className="text_block"
-              onMouseEnter={()=>this.setSmiling()}
-              onMouseLeave={()=>this.stopSmiling()}
-            >
-              Stream is online
-            </div>
-            :
-            <div
-              className="text_block"
-              onMouseEnter={()=>this.setSmiling()}
-              onMouseLeave={()=>this.stopSmiling()}
-            >
-            Stream is offline
-            </div>
-          }
-        </Link>
         <SocialMediaCount/>
       </div>
     );
@@ -665,7 +640,6 @@ class ThreeContainer extends Component {
 
 export default connect(
   (state) => ({
-    isLive: selectTwitchIsLive(state),
     lionLoaded: selectLionLoaded(state),
     isSmiling: selectLionSmiling(state),
     windowHalfX: selectLionWindowHalfX(state),

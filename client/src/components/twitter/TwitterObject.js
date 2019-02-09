@@ -16,12 +16,12 @@ const ImageDisplay = ({extendedEntities,toggleSmile, openImage}) => {
       return (
         <div className="twitter_object__image_container">
           <img
-            src={extendedEntities.media[0].media_url}
+            src={extendedEntities.media[0].media_url_https}
             alt="twitter extended media"
             className="twitter_object__image"
             onMouseEnter={()=>toggleSmile(true)}
             onMouseLeave={()=>toggleSmile(false)}
-            onClick={()=>openImage(extendedEntities.media[0].media_url)}
+            onClick={()=>openImage(extendedEntities.media[0].media_url_https)}
           />
         </div>
       );

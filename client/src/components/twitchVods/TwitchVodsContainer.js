@@ -60,6 +60,8 @@ class TwitchVodsContainer extends React.Component{
                   views = {value.views}
                   preview = {value.preview}
                   created_at = {value.created_at}
+                  length = {value.length}
+                  game = {value.game}
                 />
               </div>
             )):null}

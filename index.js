@@ -64,7 +64,6 @@ const couch = new NodeCouchDb({
 });
 
 app.get('/schedule/view', (req, res) => {
-
   couch.get(dbName, couchViewUrl).then(
      function(data) {
        res.send(data.data.rows);
@@ -74,6 +73,7 @@ app.get('/schedule/view', (req, res) => {
      }
    )
  });
+
 app.post('/schedule/post', urlencodedParser, (req, res) => {
   couch.uniqid().then(function(ids){
     const id = ids[0];
@@ -220,7 +220,6 @@ cron.schedule("* * * * *", function() {
 /*======================================
 =                TWITCH               =
 ======================================*/
-
 cron.schedule("* * * * *", function() {
 
   /* twitch is live */
@@ -281,12 +280,14 @@ cron.schedule("* * * * *", function() {
 /*======================================
 =                YOUTUBE               =
 ======================================*/
-cron.schedule("* * * * *", function() {
+/* once every 3 minutes due to rate limit*/
+cron.schedule("*/3 * * * *", function() {
   fetch("https://www.googleapis.com/youtube/v3/channels?part=statistics&id="+YOUTUBE_ID+"&key="+googleKey)
     .then(res => res.json())
     .then(body => {
       if (body){
         if (body.items && body.items[0] && body.items[0].statistics) {
+
           socialMediaData.youtubeFollowers = body.items[0].statistics.subscriberCount;
         }
     }

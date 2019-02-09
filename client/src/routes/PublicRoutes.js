@@ -31,6 +31,7 @@ class PublicRoutes extends Component {
     return (
       <div>
         <Home/>
+
         {loadedContent[siteRoutes.twitter]?
           <TwitterContainer />:null}
         {loadedContent[siteRoutes.twitchVods]?
